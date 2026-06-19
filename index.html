@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
+<meta name="theme-color" content="#1a3a5c"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+<meta name="apple-mobile-web-app-title" content="Mess Duty"/>
+<link rel="manifest" href="./manifest.json"/>
+<link rel="apple-touch-icon" href="./icons/icon-192.png"/>
+<title>सी-60 मेस ड्युटी चार्ट</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+html,body{height:100%;overflow-x:hidden;}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f2f5;color:#222;}
+.container{max-width:500px;margin:0 auto;padding:10px 10px 90px;}
+
+/* LOCK SCREEN */
+#lock-screen{position:fixed;inset:0;background:linear-gradient(135deg,#1a3a5c,#0d2240);z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;}
+#lock-screen.hide{display:none;}
+.lock-logo{font-size:56px;margin-bottom:12px;}
+.lock-title{color:#fff;font-size:18px;font-weight:700;margin-bottom:4px;}
+.lock-sub{color:#90caf9;font-size:12px;margin-bottom:32px;text-align:center;}
+.lock-card{background:#fff;border-radius:16px;padding:24px;width:100%;max-width:320px;box-shadow:0 8px 32px #0005;}
+.lock-label{font-size:12px;color:#888;margin-bottom:6px;font-weight:600;}
+.lock-input{width:100%;padding:12px 14px;border:2px solid #e0e0e0;border-radius:10px;font-size:18px;letter-spacing:6px;text-align:center;margin-bottom:12px;color:#1a3a5c;font-weight:700;}
+.lock-input:focus{outline:none;border-color:#1a3a5c;}
+.lock-btn{width:100%;padding:13px;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;margin-bottom:8px;}
+.btn-admin{background:linear-gradient(135deg,#1a3a5c,#2563a8);color:#fff;}
+.btn-view{background:#f0f4f8;color:#1a3a5c;border:1.5px solid #d0d7e0;}
+.lock-err{color:#e53935;font-size:12px;text-align:center;min-height:18px;margin-top:4px;}
+.mode-badge{display:inline-flex;align-items:center;gap:5px;font-size:11px;padding:4px 10px;border-radius:20px;font-weight:700;margin-left:8px;}
+.badge-admin{background:#e8f5e9;color:#2e7d32;}
+.badge-view{background:#fff8e1;color:#f57f17;}
+.lock-out-btn{background:none;border:1px solid #d0d7e0;border-radius:8px;padding:5px 12px;font-size:11px;cursor:pointer;color:#888;}
+
+/* HEADER */
+.header{background:linear-gradient(135deg,#1a3a5c,#2563a8);color:#fff;border-radius:14px;padding:12px 14px;margin-bottom:12px;box-shadow:0 3px 10px #1a3a5c44;}
+.header-top{display:flex;align-items:center;justify-content:space-between;}
+.header h1{font-size:15px;font-weight:700;}
+.header p{font-size:11px;opacity:.82;margin-top:2px;}
+
+/* MONTH ROW */
+.month-row{display:flex;align-items:center;gap:6px;margin-bottom:10px;}
+.month-row select{flex:1;padding:9px 8px;border:1.5px solid #d0d7e0;border-radius:9px;font-size:13px;background:#fff;color:#222;font-weight:500;}
+.mnav{background:#fff;border:1.5px solid #d0d7e0;border-radius:9px;padding:8px 13px;cursor:pointer;font-size:15px;font-weight:700;color:#1a3a5c;}
+
+/* TABS */
+.tab-bar{display:flex;gap:3px;margin-bottom:10px;background:#fff;border-radius:12px;padding:4px;border:1.5px solid #e4e8f0;box-shadow:0 1px 4px #0001;}
+.tab{flex:1;padding:7px 2px;border:none;border-radius:9px;background:none;font-size:10px;cursor:pointer;color:#666;text-align:center;font-weight:500;transition:.15s;}
+.tab.active{background:#1a3a5c;color:#fff;font-weight:700;}
+.section{display:none;}
+.section.active{display:block;}
+
+/* CARD */
+.card{background:#fff;border:1.5px solid #e4e8f0;border-radius:14px;padding:13px 14px;margin-bottom:10px;box-shadow:0 1px 4px #0001;}
+.card-title{font-size:12px;font-weight:700;color:#1a3a5c;margin-bottom:9px;display:flex;align-items:center;gap:5px;}
+
+/* PROGRESS */
+.prog-hd{display:flex;justify-content:space-between;font-size:11px;color:#888;margin-bottom:5px;}
+.prog-bg{height:7px;background:#eef0f5;border-radius:4px;overflow:hidden;}
+.prog-fill{height:100%;background:linear-gradient(90deg,#2e7d32,#66bb6a);border-radius:4px;transition:width .4s;}
+.mini-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(30px,1fr));gap:3px;margin-top:8px;}
+.mc{height:29px;border-radius:6px;border:1.5px solid #e0e0e0;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:9px;color:#aaa;background:#fff;transition:.1s;font-weight:500;}
+.mc.ad{border:2px solid #1565c0;background:#e8f0fe;color:#1565c0;font-weight:700;}
+.mc.fi{background:#e8f5e9;border-color:#81c784;color:#2e7d32;font-size:12px;}
+
+/* TODAY */
+.today-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px;}
+.ts{border-radius:11px;padding:10px 12px;border:1.5px solid #e4e8f0;background:#fff;}
+.ts-lbl{font-size:10px;color:#aaa;margin-bottom:4px;font-weight:600;}
+.ts-nm{font-size:12px;font-weight:700;color:#1a3a5c;line-height:1.7;}
+
+/* NAV */
+.nav-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;gap:6px;}
+.nav-btn{background:#fff;border:1.5px solid #d0d7e0;border-radius:9px;padding:8px 13px;cursor:pointer;font-size:12px;font-weight:600;color:#1a3a5c;}
+.date-lbl{font-size:13px;font-weight:700;color:#1a3a5c;text-align:center;flex:1;line-height:1.4;}
+
+/* SHIFT */
+.shift-card{background:#fff;border:1.5px solid #e4e8f0;border-radius:12px;padding:12px 13px;margin-bottom:8px;}
+.shift-hd{font-size:12px;font-weight:700;color:#555;margin-bottom:8px;display:flex;align-items:center;gap:4px;}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.ig label{font-size:10px;color:#aaa;display:block;margin-bottom:3px;font-weight:600;text-transform:uppercase;}
+.ig select,.ig input{width:100%;padding:8px;border:1.5px solid #d0d7e0;border-radius:8px;font-size:12px;background:#fff;color:#222;font-weight:500;}
+.ig select:disabled,.ig input:disabled{background:#f5f5f5;color:#aaa;cursor:not-allowed;}
+.save-btn{width:100%;margin-top:10px;padding:12px;background:linear-gradient(135deg,#1a3a5c,#2563a8);border:none;border-radius:11px;font-size:14px;font-weight:700;cursor:pointer;color:#fff;box-shadow:0 3px 8px #1a3a5c33;}
+.save-btn:disabled{background:#ccc;cursor:not-allowed;box-shadow:none;}
+.save-btn.saved{background:linear-gradient(135deg,#2e7d32,#43a047);}
+
+/* READONLY NOTICE */
+.ro-notice{background:#fff8e1;border:1.5px solid #ffe082;border-radius:10px;padding:10px 14px;font-size:12px;color:#f57f17;margin-bottom:10px;display:flex;align-items:center;gap:7px;}
+
+/* MSG */
+.msg-tabs{display:flex;gap:5px;margin-bottom:10px;}
+.msg-tab{flex:1;padding:9px;border:1.5px solid #d0d7e0;border-radius:9px;background:#fff;font-size:12px;cursor:pointer;text-align:center;font-weight:600;color:#666;}
+.msg-tab.active{background:#1a3a5c;color:#fff;border-color:#1a3a5c;}
+.j-row{display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid #f5f5f5;}
+.j-row:last-child{border-bottom:none;}
+.ji{font-size:12px;font-weight:700;}
+.js{font-size:10px;color:#aaa;margin-top:1px;}
+.wa-btn{padding:7px 11px;border:1.5px solid #2e7d32;border-radius:8px;background:#e8f5e9;color:#1b5e20;font-size:11px;cursor:pointer;font-weight:700;white-space:nowrap;}
+.ph-box{display:none;margin-top:6px;gap:6px;align-items:center;}
+.ph-box.show{display:flex;}
+.ph-box input{flex:1;padding:7px 9px;border:1.5px solid #d0d7e0;border-radius:8px;font-size:12px;}
+.ph-box button{padding:7px 11px;border:none;border-radius:8px;background:#1a3a5c;color:#fff;font-size:11px;cursor:pointer;font-weight:700;}
+.no-data{text-align:center;color:#bbb;font-size:13px;padding:20px 0;}
+
+/* HISTORY */
+.search-bar{width:100%;padding:10px 12px;border:1.5px solid #d0d7e0;border-radius:10px;font-size:13px;background:#fff;margin-bottom:8px;}
+.filter-row{display:flex;gap:6px;margin-bottom:9px;}
+.filter-row select{flex:1;padding:8px;border:1.5px solid #d0d7e0;border-radius:9px;font-size:12px;background:#fff;}
+.pdf-btn{width:100%;padding:11px;background:linear-gradient(135deg,#b71c1c,#e53935);border:none;border-radius:11px;font-size:13px;font-weight:700;cursor:pointer;color:#fff;margin-bottom:10px;box-shadow:0 3px 8px #b71c1c33;}
+.legend{display:flex;gap:12px;margin-bottom:8px;font-size:11px;color:#666;}
+.leg{display:flex;align-items:center;gap:4px;}
+.ld{width:10px;height:10px;border-radius:3px;}
+.hcard{background:#fff;border:1.5px solid #e4e8f0;border-radius:12px;padding:12px;margin-bottom:8px;}
+.hname{font-size:13px;font-weight:700;color:#1a3a5c;margin-bottom:3px;}
+.hbadge{display:inline-block;font-size:10px;color:#555;background:#f0f4f8;border-radius:5px;padding:2px 8px;margin:0 3px 5px 0;font-weight:600;}
+.chips{display:flex;flex-wrap:wrap;gap:3px;margin-top:3px;}
+.chip{font-size:10px;padding:2px 8px;border-radius:5px;}
+.chip.morning{border:1px solid #f57c00;color:#bf360c;background:#fff8e1;}
+.chip.evening{border:1px solid #512da8;color:#311b92;background:#ede7f6;}
+.rank-badge{font-size:9px;padding:1px 6px;border-radius:4px;background:#e8f0fe;color:#1565c0;margin-left:5px;font-weight:700;}
+
+/* STATS */
+.stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px;}
+.stat-card{background:#fff;border:1.5px solid #e4e8f0;border-radius:12px;padding:14px 12px;text-align:center;}
+.stat-val{font-size:26px;font-weight:700;color:#1a3a5c;}
+.stat-lbl{font-size:10px;color:#aaa;margin-top:3px;}
+.bar-wrap{display:flex;align-items:flex-end;gap:3px;height:64px;margin-top:8px;}
+.mbar{flex:1;background:linear-gradient(180deg,#90caf9,#1565c0);border-radius:4px 4px 0 0;min-height:3px;}
+.mbar-lbl{font-size:7.5px;color:#aaa;text-align:center;margin-top:2px;}
+.top-row{display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid #f5f5f5;font-size:12px;}
+.top-row:last-child{border-bottom:none;}
+.top-badge{background:#e8f0fe;color:#1565c0;padding:2px 9px;border-radius:6px;font-weight:700;font-size:11px;}
+
+/* PERSONNEL */
+.per-list{list-style:none;max-height:260px;overflow-y:auto;}
+.per-list li{padding:8px 4px;border-bottom:1px solid #f5f5f5;font-size:12px;}
+.per-list li:last-child{border-bottom:none;}
+.per-name-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;}
+.per-name{font-weight:700;color:#1a3a5c;}
+.pdel{background:none;border:none;color:#e53935;cursor:pointer;font-size:15px;padding:0 4px;}
+.per-phone-row{display:flex;gap:5px;align-items:center;}
+.per-phone-row input{flex:1;padding:5px 8px;border:1.5px solid #e0e0e0;border-radius:7px;font-size:12px;}
+.per-phone-row input:disabled{background:#f5f5f5;color:#aaa;}
+.per-phone-row button{padding:5px 10px;border:none;border-radius:7px;background:#1a3a5c;color:#fff;font-size:11px;cursor:pointer;font-weight:700;}
+.add-row{display:flex;gap:6px;margin-bottom:9px;}
+.add-row input{flex:1;padding:9px 10px;border:1.5px solid #d0d7e0;border-radius:9px;font-size:13px;}
+.add-row button{padding:9px 14px;border:none;border-radius:9px;background:#1a3a5c;color:#fff;font-size:13px;cursor:pointer;font-weight:700;}
+.bno-tag{font-size:10px;color:#90a4ae;margin-left:5px;}
+
+/* INSTALL */
+#install-banner{display:none;position:fixed;bottom:75px;left:50%;transform:translateX(-50%);width:calc(100% - 20px);max-width:480px;background:#1a3a5c;color:#fff;border-radius:12px;padding:12px 16px;z-index:500;box-shadow:0 4px 16px #0004;align-items:center;justify-content:space-between;gap:10px;}
+#install-banner.show{display:flex;}
+#install-banner p{font-size:12px;line-height:1.5;flex:1;}
+#install-banner button{padding:7px 13px;border:none;border-radius:8px;background:#fff;color:#1a3a5c;font-weight:700;font-size:12px;cursor:pointer;white-space:nowrap;}
+.ib-close{background:none!important;color:#fff!important;font-size:18px;padding:0!important;}
+
+/* MODAL */
+.modal-bg{display:none;position:fixed;inset:0;background:#0007;z-index:800;align-items:center;justify-content:center;}
+.modal-bg.show{display:flex;}
+.modal{background:#fff;border-radius:16px;padding:22px;width:90%;max-width:320px;}
+.modal h3{font-size:15px;font-weight:700;color:#1a3a5c;margin-bottom:12px;}
+.modal input{width:100%;padding:10px;border:1.5px solid #d0d7e0;border-radius:9px;font-size:14px;margin-bottom:10px;letter-spacing:4px;text-align:center;}
+.modal-btns{display:flex;gap:8px;}
+.modal-btns button{flex:1;padding:10px;border:none;border-radius:9px;font-size:13px;font-weight:700;cursor:pointer;}
+.btn-ok{background:#1a3a5c;color:#fff;}
+.btn-cancel{background:#f0f0f0;color:#555;}
+</style>
+</head>
+<body>
+
+<!-- LOCK SCREEN -->
+<div id="lock-screen">
+  <div class="lock-logo">🛡️</div>
+  <div class="lock-title">सी-60 रक्षा पथक</div>
+  <div class="lock-sub">मेस ड्युटी चार्ट<br>एओपी – पिपरखारी</div>
+  <div class="lock-card">
+    <div class="lock-label">Admin PIN टाका (edit साठी)</div>
+    <input type="password" class="lock-input" id="pin-input" maxlength="6" placeholder="••••••" inputmode="numeric"/>
+    <button class="lock-btn btn-admin" onclick="tryLogin()">🔐 Admin म्हणून प्रवेश</button>
+    <button class="lock-btn btn-view" onclick="viewOnly()">👁️ फक्त पाहण्यासाठी</button>
+    <div class="lock-err" id="lock-err"></div>
+  </div>
+</div>
+
+<!-- CHANGE PIN MODAL -->
+<div class="modal-bg" id="pin-modal">
+  <div class="modal">
+    <h3>🔑 PIN बदला</h3>
+    <div style="font-size:11px;color:#888;margin-bottom:8px;">जुना PIN</div>
+    <input type="password" id="old-pin" maxlength="6" placeholder="••••••" inputmode="numeric"/>
+    <div style="font-size:11px;color:#888;margin-bottom:8px;">नवीन PIN (4-6 अंक)</div>
+    <input type="password" id="new-pin" maxlength="6" placeholder="••••••" inputmode="numeric"/>
+    <div class="lock-err" id="pin-modal-err"></div>
+    <div class="modal-btns" style="margin-top:10px;">
+      <button class="modal-btns btn-cancel" onclick="closePinModal()" style="flex:1;padding:10px;border:none;border-radius:9px;font-size:13px;font-weight:700;cursor:pointer;background:#f0f0f0;color:#555;">रद्द</button>
+      <button class="modal-btns btn-ok" onclick="changePin()" style="flex:1;padding:10px;border:none;border-radius:9px;font-size:13px;font-weight:700;cursor:pointer;background:#1a3a5c;color:#fff;">बदला</button>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN APP -->
+<div class="container">
+
+  <div class="header">
+    <div class="header-top">
+      <div>
+        <h1>🛡️ सी-60 रक्षा पथक</h1>
+        <p id="hdr-sub">मेस ड्युटी चार्ट | एओपी – पिपरखारी</p>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:5px;">
+        <span class="mode-badge" id="mode-badge">—</span>
+        <button class="lock-out-btn" onclick="logout()" style="background:none;border:1px solid #ffffff55;border-radius:7px;padding:4px 10px;font-size:10px;cursor:pointer;color:#fff;">🚪 बाहेर</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="month-row">
+    <button class="mnav" onclick="changeMonth(-1)">◀</button>
+    <select id="sel-month" onchange="onMonthChange()">
+      <option value="0">जानेवारी</option><option value="1">फेब्रुवारी</option>
+      <option value="2">मार्च</option><option value="3">एप्रिल</option>
+      <option value="4">मे</option><option value="5">जून</option>
+      <option value="6">जुलै</option><option value="7">ऑगस्ट</option>
+      <option value="8">सप्टेंबर</option><option value="9">ऑक्टोबर</option>
+      <option value="10">नोव्हेंबर</option><option value="11">डिसेंबर</option>
+    </select>
+    <select id="sel-year" onchange="onMonthChange()"></select>
+    <button class="mnav" onclick="changeMonth(1)">▶</button>
+  </div>
+
+  <div class="tab-bar">
+    <button class="tab active" onclick="switchTab('entry',this)">📋 नोंद</button>
+    <button class="tab" onclick="switchTab('msg',this)">📲 Message</button>
+    <button class="tab" onclick="switchTab('history',this)">📊 History</button>
+    <button class="tab" onclick="switchTab('stats',this)">📈 Stats</button>
+    <button class="tab" onclick="switchTab('personnel',this)">👥 जवान</button>
+  </div>
+
+  <!-- ENTRY -->
+  <div id="sec-entry" class="section active">
+    <div id="ro-notice-entry" class="ro-notice" style="display:none;">
+      👁️ View Only Mode — फक्त पाहता येईल, edit करता येणार नाही.
+    </div>
+    <div class="card">
+      <div class="prog-hd"><span id="month-name-label">—</span><span id="prog-count">0/0 भरले</span></div>
+      <div class="prog-bg"><div class="prog-fill" id="prog-bar" style="width:0%"></div></div>
+      <div class="mini-grid" id="mini-grid"></div>
+    </div>
+    <div class="today-row" id="today-summary"></div>
+    <div class="nav-bar">
+      <button class="nav-btn" onclick="changeDay(-1)">◀ मागे</button>
+      <div class="date-lbl" id="date-display">—</div>
+      <button class="nav-btn" onclick="changeDay(1)">पुढे ▶</button>
+    </div>
+    <div class="shift-card">
+      <div class="shift-hd">🌅 सकाळ पाळी</div>
+      <div class="two-col">
+        <div class="ig"><label>जवान १</label><select id="m1" onchange="markChanged()"></select></div>
+        <div class="ig"><label>जवान २</label><select id="m2" onchange="markChanged()"></select></div>
+      </div>
+    </div>
+    <div class="shift-card">
+      <div class="shift-hd">🌙 संध्याकाळ पाळी</div>
+      <div class="two-col">
+        <div class="ig"><label>जवान १</label><select id="e1" onchange="markChanged()"></select></div>
+        <div class="ig"><label>जवान २</label><select id="e2" onchange="markChanged()"></select></div>
+      </div>
+    </div>
+    <button class="save-btn" id="save-btn" onclick="saveDay()">💾 जतन करा</button>
+  </div>
+
+  <!-- MESSAGE -->
+  <div id="sec-msg" class="section">
+    <div class="msg-tabs">
+      <button class="msg-tab active" id="mt-today" onclick="showMsgTab('today')">📅 आजची Duty</button>
+      <button class="msg-tab" id="mt-tmr" onclick="showMsgTab('tmr')">📅 उद्याची Duty</button>
+    </div>
+    <div id="msg-content"></div>
+  </div>
+
+  <!-- HISTORY -->
+  <div id="sec-history" class="section">
+    <button class="pdf-btn" onclick="downloadPDF()">📄 History PDF Download करा</button>
+    <input type="text" class="search-bar" id="search-input" placeholder="🔍 जवानाचे नाव शोधा..." oninput="renderHistory()"/>
+    <div class="filter-row">
+      <select id="hist-month" onchange="renderHistory()">
+        <option value="all">सर्व महिने</option>
+        <option value="0">जानेवारी</option><option value="1">फेब्रुवारी</option>
+        <option value="2">मार्च</option><option value="3">एप्रिल</option>
+        <option value="4">मे</option><option value="5">जून</option>
+        <option value="6">जुलै</option><option value="7">ऑगस्ट</option>
+        <option value="8">सप्टेंबर</option><option value="9">ऑक्टोबर</option>
+        <option value="10">नोव्हेंबर</option><option value="11">डिसेंबर</option>
+      </select>
+      <select id="hist-year" onchange="renderHistory()"></select>
+    </div>
+    <div class="legend">
+      <div class="leg"><span class="ld" style="background:#f57c00;"></span> सकाळ</div>
+      <div class="leg"><span class="ld" style="background:#512da8;"></span> संध्याकाळ</div>
+    </div>
+    <div id="history-content"></div>
+  </div>
+
+  <!-- STATS -->
+  <div id="sec-stats" class="section">
+    <div class="stats-grid" id="stats-grid"></div>
+    <div class="card">
+      <div class="card-title">📅 महिनानिहाय (<span id="stats-year"></span>)</div>
+      <div class="bar-wrap" id="month-bar"></div>
+      <div style="display:grid;grid-template-columns:repeat(12,1fr);gap:1px;margin-top:2px;">
+        <div class="mbar-lbl">जा</div><div class="mbar-lbl">फे</div><div class="mbar-lbl">मा</div>
+        <div class="mbar-lbl">ए</div><div class="mbar-lbl">मे</div><div class="mbar-lbl">जू</div>
+        <div class="mbar-lbl">जु</div><div class="mbar-lbl">ऑ</div><div class="mbar-lbl">स</div>
+        <div class="mbar-lbl">ऑक</div><div class="mbar-lbl">नो</div><div class="mbar-lbl">डि</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">🏆 Top 5 — सर्वाधिक Duty</div>
+      <div id="top5"></div>
+    </div>
+  </div>
+
+  <!-- PERSONNEL -->
+  <div id="sec-personnel" class="section">
+    <div id="ro-notice-per" class="ro-notice" style="display:none;">
+      👁️ View Only — नंबर पाहता येतील, edit करता येणार नाही.
+    </div>
+    <div class="card">
+      <div class="card-title">👥 जवानांची यादी (<span id="p-count">0</span>/23)
+        <span id="admin-pin-btn" style="margin-left:auto;font-size:10px;cursor:pointer;color:#1565c0;font-weight:600;" onclick="openPinModal()">🔑 PIN बदला</span>
+      </div>
+      <div id="add-row-wrap">
+        <div class="add-row">
+          <input type="text" id="new-name" placeholder="नवीन नाव..." maxlength="40" onkeydown="if(event.key==='Enter')addPersonnel()"/>
+          <button onclick="addPersonnel()">+ जोडा</button>
+        </div>
+      </div>
+      <ul class="per-list" id="p-list"></ul>
+    </div>
+  </div>
+
+</div><!-- /container -->
+
+<!-- Install Banner -->
+<div id="install-banner">
+  <p>📲 <strong>Home Screen</strong> वर App जोडा!</p>
+  <button onclick="doInstall()">जोडा</button>
+  <button class="ib-close" onclick="dismissInstall()">✕</button>
+</div>
+
+<script>
+// ══════════════════════════════════════════════
+//  DATA KEYS & DEFAULTS
+// ══════════════════════════════════════════════
+var DKEY='mdc_data_v6',PKEY='mdc_phones_v6',PERKEY='mdc_per_v6',PINKEY='mdc_pin_v6';
+var allData={},personnel=[];
+var MN=['जानेवारी','फेब्रुवारी','मार्च','एप्रिल','मे','जून','जुलै','ऑगस्ट','सप्टेंबर','ऑक्टोबर','नोव्हेंबर','डिसेंबर'];
+var WD=['रविवार','सोमवार','मंगळवार','बुधवार','गुरुवार','शुक्रवार','शनिवार'];
+var NOW=new Date(),curY=NOW.getFullYear(),curM=NOW.getMonth(),curD=NOW.getDate()-1,curMsgTab='today';
+var isAdmin=false;
+var deferredPrompt=null;
+
+var DEFAULT_P=[
+  {bno:'903', rank:'पो.हवा.',name:'गिरीधर रक्षा',      phone:''},
+  {bno:'1422',rank:'पो.हवा.',name:'शिशुपाल दमाहे',    phone:''},
+  {bno:'1691',rank:'पो.हवा.',name:'उमेश टेंभरे',       phone:''},
+  {bno:'2040',rank:'पो.ना.', name:'मनिषकुमार ताराम',   phone:''},
+  {bno:'2223',rank:'पो.ना.', name:'महेश सयाम',          phone:''},
+  {bno:'1842',rank:'पो.ना.', name:'विजय बिसेन',         phone:''},
+  {bno:'1853',rank:'पो.शि.', name:'अमृतलाल वाढीवे',    phone:''},
+  {bno:'1905',rank:'पो.शि.', name:'मनोहर बागडेहरीया',  phone:''},
+  {bno:'1978',rank:'पो.शि.', name:'गोविंद इंद्रवाड',   phone:''},
+  {bno:'2198',rank:'पो.शि.', name:'उमेश कुवर',          phone:''},
+  {bno:'2204',rank:'पो.शि.', name:'अमर नेताम',          phone:''},
+  {bno:'1792',rank:'पो.शि.', name:'सुजित यादव',         phone:''},
+  {bno:'815', rank:'पो.शि.', name:'शिवदास गुरनुले',    phone:''},
+  {bno:'1599',rank:'पो.शि.', name:'राहुल सलामे',        phone:''},
+  {bno:'1288',rank:'पो.शि.', name:'गणेश घुगे',          phone:''},
+  {bno:'1810',rank:'पो.शि.', name:'दत्तात्रय जगताप',   phone:''},
+  {bno:'1722',rank:'पो.शि.', name:'दिपक मुकनर',         phone:''},
+  {bno:'1018',rank:'चा.पो.हवा.',name:'अशोक महारवाडे',  phone:''},
+  {bno:'1826',rank:'चा.पो.ना.',name:'महेश गिर्हेपुंजे', phone:''},
+  {bno:'506', rank:'चा.पो.शि.',name:'दिनेश लोदी',      phone:''}
+];
+
+// ══════════════════════════════════════════════
+//  LOAD / SAVE
+// ══════════════════════════════════════════════
+function load(){
+  try{allData=JSON.parse(localStorage.getItem(DKEY)||'{}');}catch(e){allData={};}
+  try{
+    var p=JSON.parse(localStorage.getItem(PERKEY)||'null');
+    personnel=p&&p.length?p:JSON.parse(JSON.stringify(DEFAULT_P));
+  }catch(e){personnel=JSON.parse(JSON.stringify(DEFAULT_P));}
+  if(!localStorage.getItem(PINKEY)) localStorage.setItem(PINKEY,'1234');
+}
+function saveAll(){
+  try{localStorage.setItem(DKEY,JSON.stringify(allData));}catch(e){}
+  try{localStorage.setItem(PERKEY,JSON.stringify(personnel));}catch(e){}
+}
+function getPin(){return localStorage.getItem(PINKEY)||'1234';}
+
+// ══════════════════════════════════════════════
+//  AUTH
+// ══════════════════════════════════════════════
+function tryLogin(){
+  var pin=document.getElementById('pin-input').value.trim();
+  if(pin===getPin()){
+    isAdmin=true; enterApp();
+  } else {
+    document.getElementById('lock-err').textContent='❌ चुकीचा PIN. पुन्हा प्रयत्न करा.';
+    document.getElementById('pin-input').value='';
+  }
+}
+function viewOnly(){isAdmin=false;enterApp();}
+function enterApp(){
+  document.getElementById('lock-screen').classList.add('hide');
+  applyMode();
+  initYears();load();renderEntry();
+}
+function logout(){
+  isAdmin=false;
+  document.getElementById('pin-input').value='';
+  document.getElementById('lock-err').textContent='';
+  document.getElementById('lock-screen').classList.remove('hide');
+}
+function applyMode(){
+  var badge=document.getElementById('mode-badge');
+  if(isAdmin){
+    badge.textContent='🔐 Admin';badge.className='mode-badge badge-admin';
+  } else {
+    badge.textContent='👁️ View Only';badge.className='mode-badge badge-view';
+  }
+  // entry tab
+  var ro=document.getElementById('ro-notice-entry');
+  ro.style.display=isAdmin?'none':'flex';
+  ['m1','m2','e1','e2'].forEach(function(id){
+    var el=document.getElementById(id);if(el)el.disabled=!isAdmin;
+  });
+  var sb=document.getElementById('save-btn');
+  if(sb){sb.disabled=!isAdmin;}
+  // personnel
+  document.getElementById('ro-notice-per').style.display=isAdmin?'none':'flex';
+  document.getElementById('add-row-wrap').style.display=isAdmin?'block':'none';
+  document.getElementById('admin-pin-btn').style.display=isAdmin?'inline':'none';
+}
+
+// PIN MODAL
+function openPinModal(){
+  document.getElementById('pin-modal').classList.add('show');
+  document.getElementById('old-pin').value='';
+  document.getElementById('new-pin').value='';
+  document.getElementById('pin-modal-err').textContent='';
+}
+function closePinModal(){document.getElementById('pin-modal').classList.remove('show');}
+function changePin(){
+  var op=document.getElementById('old-pin').value.trim();
+  var np=document.getElementById('new-pin').value.trim();
+  var err=document.getElementById('pin-modal-err');
+  if(op!==getPin()){err.textContent='❌ जुना PIN चुकीचा आहे.';return;}
+  if(!np||np.length<4){err.textContent='❌ नवीन PIN किमान 4 अंक असावा.';return;}
+  localStorage.setItem(PINKEY,np);
+  closePinModal();
+  alert('✅ PIN यशस्वीरित्या बदलला!');
+}
+
+// ══════════════════════════════════════════════
+//  HELPERS
+// ══════════════════════════════════════════════
+function dim(y,m){return new Date(y,m+1,0).getDate();}
+function dStr(y,m,d){return String(d+1).padStart(2,'0')+'/'+String(m+1).padStart(2,'0')+'/'+y;}
+function wDay(y,m,d){return WD[new Date(y,m,d+1).getDay()];}
+function rk(y,m,d){return y+'_'+m+'_'+d;}
+function dName(p){return p.bno+' '+p.rank+'/'+p.name;}
+
+function initYears(){
+  var yr=new Date().getFullYear();
+  ['sel-year','hist-year'].forEach(function(id){
+    var s=document.getElementById(id);if(!s)return;
+    s.innerHTML='';
+    for(var y=yr-1;y<=yr+3;y++){var o=document.createElement('option');o.value=y;o.textContent=y;if(y===yr)o.selected=true;s.appendChild(o);}
+  });
+  document.getElementById('sel-month').value=curM;
+  document.getElementById('sel-year').value=curY;
+  document.getElementById('hist-year').value=curY;
+}
+
+function refreshDDs(){
+  ['m1','m2','e1','e2'].forEach(function(id){
+    var s=document.getElementById(id);if(!s)return;
+    var cv=s.value;
+    s.innerHTML='<option value="">— निवडा —</option>';
+    personnel.forEach(function(p){
+      var o=document.createElement('option');o.value=p.name;o.textContent=dName(p);
+      if(p.name===cv)o.selected=true;s.appendChild(o);
+    });
+    s.disabled=!isAdmin;
+  });
+}
+
+// ══════════════════════════════════════════════
+//  MONTH / DAY NAV
+// ══════════════════════════════════════════════
+function onMonthChange(){curM=parseInt(document.getElementById('sel-month').value);curY=parseInt(document.getElementById('sel-year').value);curD=0;renderEntry();}
+function changeMonth(d){curM+=d;if(curM<0){curM=11;curY--;}if(curM>11){curM=0;curY++;}document.getElementById('sel-month').value=curM;document.getElementById('sel-year').value=curY;curD=0;renderEntry();}
+function changeDay(d){var mx=dim(curY,curM)-1;curD=Math.max(0,Math.min(mx,curD+d));renderEntry();}
+
+// ══════════════════════════════════════════════
+//  TAB
+// ══════════════════════════════════════════════
+function switchTab(t,el){
+  document.querySelectorAll('.tab-bar>.tab').forEach(function(b){b.classList.remove('active');});
+  document.querySelectorAll('.section').forEach(function(s){s.classList.remove('active');});
+  el.classList.add('active');document.getElementById('sec-'+t).classList.add('active');
+  if(t==='msg')renderMsg();
+  if(t==='history')renderHistory();
+  if(t==='stats')renderStats();
+  if(t==='personnel')renderPersonnel();
+}
+
+// ══════════════════════════════════════════════
+//  ENTRY
+// ══════════════════════════════════════════════
+function renderEntry(){
+  document.getElementById('hdr-sub').textContent='मेस ड्युटी चार्ट | '+MN[curM]+' '+curY;
+  document.getElementById('month-name-label').textContent=MN[curM]+' '+curY;
+  document.getElementById('date-display').textContent=wDay(curY,curM,curD)+'\n'+dStr(curY,curM,curD);
+  refreshDDs();
+  var rec=allData[rk(curY,curM,curD)]||{};
+  document.getElementById('m1').value=rec.m1||'';document.getElementById('m2').value=rec.m2||'';
+  document.getElementById('e1').value=rec.e1||'';document.getElementById('e2').value=rec.e2||'';
+  var b=document.getElementById('save-btn');
+  b.classList.remove('saved');b.textContent='💾 जतन करा';b.disabled=!isAdmin;
+  renderMiniGrid();updateProgress();renderTodaySummary();
+}
+function isFilled(y,m,d){var r=allData[rk(y,m,d)]||{};return !!(r.m1||r.m2||r.e1||r.e2);}
+function updateProgress(){
+  var tot=dim(curY,curM),f=0;
+  for(var i=0;i<tot;i++)if(isFilled(curY,curM,i))f++;
+  document.getElementById('prog-bar').style.width=Math.round(f/tot*100)+'%';
+  document.getElementById('prog-count').textContent=f+'/'+tot+' भरले';
+}
+function renderMiniGrid(){
+  var g=document.getElementById('mini-grid');g.innerHTML='';
+  var tot=dim(curY,curM);
+  for(var i=0;i<tot;i++){
+    var c=document.createElement('div'),fi=isFilled(curY,curM,i);
+    c.className='mc'+(i===curD?' ad':'')+(fi?' fi':'');
+    c.title=dStr(curY,curM,i);c.innerHTML=fi?'✓':(i+1);
+    (function(idx){c.onclick=function(){curD=idx;renderEntry();};})(i);
+    g.appendChild(c);
+  }
+}
+function renderTodaySummary(){
+  var td=new Date().getDate()-1,tm=new Date().getMonth(),ty=new Date().getFullYear();
+  var rec=allData[rk(ty,tm,td)]||{};
+  var s=document.getElementById('today-summary');
+  if(ty!==curY||tm!==curM){s.innerHTML='';return;}
+  s.innerHTML='<div class="ts"><div class="ts-lbl">🌅 आज सकाळ</div><div class="ts-nm">'+(rec.m1||'—')+'<br>'+(rec.m2||'—')+'</div></div>'+
+    '<div class="ts"><div class="ts-lbl">🌙 आज संध्याकाळ</div><div class="ts-nm">'+(rec.e1||'—')+'<br>'+(rec.e2||'—')+'</div></div>';
+}
+function markChanged(){if(!isAdmin)return;var b=document.getElementById('save-btn');b.classList.remove('saved');b.textContent='💾 जतन करा';}
+function saveDay(){
+  if(!isAdmin){alert('Edit साठी Admin PIN लागतो.');return;}
+  allData[rk(curY,curM,curD)]={m1:document.getElementById('m1').value,m2:document.getElementById('m2').value,
+    e1:document.getElementById('e1').value,e2:document.getElementById('e2').value};
+  saveAll();
+  var b=document.getElementById('save-btn');b.classList.add('saved');b.textContent='✅ जतन झाले!';
+  renderMiniGrid();updateProgress();renderTodaySummary();
+}
+
+// ══════════════════════════════════════════════
+//  MESSAGE
+// ══════════════════════════════════════════════
+function showMsgTab(t){
+  curMsgTab=t;
+  document.getElementById('mt-today').classList.toggle('active',t==='today');
+  document.getElementById('mt-tmr').classList.toggle('active',t==='tmr');
+  renderMsg();
+}
+function renderMsg(){
+  var now=new Date(),tgt=new Date(now);
+  if(curMsgTab==='tmr')tgt.setDate(tgt.getDate()+1);
+  var ty=tgt.getFullYear(),tm=tgt.getMonth(),td=tgt.getDate()-1;
+  var tDate=dStr(ty,tm,td),tDay=wDay(ty,tm,td),lbl=curMsgTab==='today'?'आजची':'उद्याची';
+  var rec=allData[rk(ty,tm,td)]||{};
+  var c=document.getElementById('msg-content');
+  var jaw=[{name:rec.m1,shift:'सकाळ पाळी',ic:'🌅'},{name:rec.m2,shift:'सकाळ पाळी',ic:'🌅'},
+           {name:rec.e1,shift:'संध्याकाळ पाळी',ic:'🌙'},{name:rec.e2,shift:'संध्याकाळ पाळी',ic:'🌙'}].filter(function(j){return j.name;});
+  if(!jaw.length){c.innerHTML='<div class="card"><div class="no-data">'+lbl+' नोंद भरलेली नाही.</div></div>';return;}
+  var html='<div class="card"><div class="card-title">📅 '+lbl+' — '+tDay+', '+tDate+'</div>';
+  jaw.forEach(function(j,idx){
+    var pp=personnel.find(function(x){return x.name===j.name;})||{};
+    var savedPhone=pp.phone||'';
+    var msg=encodeURIComponent('नमस्कार '+j.name+' जी,\n'+tDate+' ('+tDay+') रोजी तुमची मेस ड्युटी आहे.\nपाळी: '+j.shift+'\nकृपया वेळेत हजर राहा.\n\n– सी-60 रक्षा पथक\nएओपी – पिपरखारी');
+    var uid='pi_'+curMsgTab+'_'+idx;
+    html+='<div class="j-row"><div><div class="ji">'+j.name+(pp.rank?'<span class="rank-badge">'+pp.rank+'</span>':'')+'</div><div class="js">'+j.ic+' '+j.shift+(savedPhone?' | 📞 '+savedPhone:'')+'</div></div>';
+    html+='<button class="wa-btn" onclick="tglPh(\''+uid+'\')">📲 Message</button></div>';
+    html+='<div class="ph-box" id="'+uid+'"><input type="tel" id="ph_'+uid+'" placeholder="10 आकडी नंबर" value="'+savedPhone+'" maxlength="10"/><button onclick="sendWA(\'ph_'+uid+'\',\''+j.name+'\',\''+msg+'\')">📤 पाठवा</button></div>';
+  });
+  html+='</div>';c.innerHTML=html;
+}
+function tglPh(id){document.getElementById(id).classList.toggle('show');}
+function sendWA(iid,name,msg){
+  var ph=document.getElementById(iid).value.trim();
+  if(!ph||ph.length<10){alert('कृपया 10 आकडी नंबर टाका.');return;}
+  // save phone to personnel
+  var pp=personnel.find(function(x){return x.name===name;});
+  if(pp){pp.phone=ph;saveAll();}
+  window.open('https://wa.me/91'+ph+'?text='+msg,'_blank');
+}
+
+// ══════════════════════════════════════════════
+//  HISTORY
+// ══════════════════════════════════════════════
+function buildJawanMap(hm,hy){
+  var jmap={};
+  Object.keys(allData).forEach(function(k){
+    var p=k.split('_');if(p.length<3)return;
+    var ky=parseInt(p[0]),km=parseInt(p[1]),kd=parseInt(p[2]);
+    if(ky!==hy)return;if(hm!=='all'&&km!==parseInt(hm))return;
+    var rec=allData[k],dt=dStr(ky,km,kd),day=wDay(ky,km,kd);
+    [{n:rec.m1,s:'morning',sl:'सकाळ'},{n:rec.m2,s:'morning',sl:'सकाळ'},
+     {n:rec.e1,s:'evening',sl:'संध्याकाळ'},{n:rec.e2,s:'evening',sl:'संध्याकाळ'}].forEach(function(j){
+      if(!j.n||!j.n.trim())return;var nm=j.n.trim();
+      if(!jmap[nm])jmap[nm]=[];
+      jmap[nm].push({date:dt,day:day,shift:j.s,sl:j.sl,ky:ky,km:km,kd:kd});
+    });
+  });
+  return jmap;
+}
+function renderHistory(){
+  var srch=(document.getElementById('search-input').value||'').trim().toLowerCase();
+  var hm=document.getElementById('hist-month').value;
+  var hy=parseInt(document.getElementById('hist-year').value);
+  var jmap=buildJawanMap(hm,hy);
+  var names=Object.keys(jmap).filter(function(n){return !srch||n.toLowerCase().includes(srch);}).sort();
+  var c=document.getElementById('history-content');
+  if(!names.length){c.innerHTML='<div class="no-data">'+(srch?'"'+srch+'" सापडले नाही.':'नोंद नाही.')+'</div>';return;}
+  var html='';
+  names.forEach(function(nm){
+    var en=jmap[nm].sort(function(a,b){return(a.ky*10000+a.km*100+a.kd)-(b.ky*10000+b.km*100+b.kd);});
+    var mo=en.filter(function(e){return e.shift==='morning';}).length;
+    var pp=personnel.find(function(x){return x.name===nm;});
+    html+='<div class="hcard"><div class="hname">'+nm+(pp?'<span class="rank-badge">'+pp.rank+'</span>':'')+'</div>';
+    html+='<span class="hbadge">एकूण: '+en.length+'</span><span class="hbadge">🌅 '+mo+'</span><span class="hbadge">🌙 '+(en.length-mo)+'</span>';
+    if(pp&&pp.phone)html+='<span class="hbadge">📞 '+pp.phone+'</span>';
+    html+='<div class="chips">';
+    en.forEach(function(e){html+='<span class="chip '+e.shift+'" title="'+e.day+'">'+e.date.slice(0,5)+' '+e.sl+'</span>';});
+    html+='</div></div>';
+  });
+  c.innerHTML=html;
+}
+
+// ══════════════════════════════════════════════
+//  PDF DOWNLOAD
+// ══════════════════════════════════════════════
+function downloadPDF(){
+  var hm=document.getElementById('hist-month').value;
+  var hy=parseInt(document.getElementById('hist-year').value);
+  var jmap=buildJawanMap(hm,hy);
+  var names=Object.keys(jmap).sort();
+  var hmLabel=hm==='all'?'सर्व महिने':MN[parseInt(hm)];
+
+  // Build printable HTML
+  var rows='';
+  names.forEach(function(nm,idx){
+    var en=jmap[nm].sort(function(a,b){return(a.ky*10000+a.km*100+a.kd)-(b.ky*10000+b.km*100+b.kd);});
+    var mo=en.filter(function(e){return e.shift==='morning';}).length;
+    var ev=en.length-mo;
+    var pp=personnel.find(function(x){return x.name===nm;})||{};
+    var chips=en.map(function(e){
+      return '<span style="display:inline-block;font-size:9px;padding:2px 6px;border-radius:4px;margin:1px;'+(e.shift==='morning'?'background:#fff3e0;color:#e65100;border:1px solid #f57c00;':'background:#ede7f6;color:#311b92;border:1px solid #512da8;')+'">'+e.date.slice(0,5)+' '+e.sl+'</span>';
+    }).join('');
+    rows+='<tr style="'+(idx%2===0?'background:#f8f9fa;':'')+'">'+
+      '<td style="padding:8px 10px;border-bottom:1px solid #e0e0e0;font-weight:700;color:#1a3a5c;">'+nm+'</td>'+
+      '<td style="padding:8px 10px;border-bottom:1px solid #e0e0e0;font-size:11px;color:#555;">'+
+        (pp.bno?pp.bno+' ':'')+(pp.rank||'')+'</td>'+
+      '<td style="padding:8px 10px;border-bottom:1px solid #e0e0e0;color:#555;font-size:11px;">'+(pp.phone||'—')+'</td>'+
+      '<td style="padding:8px 10px;border-bottom:1px solid #e0e0e0;text-align:center;font-weight:700;color:#1a3a5c;">'+en.length+'</td>'+
+      '<td style="padding:8px 10px;border-bottom:1px solid #e0e0e0;text-align:center;color:#e65100;">'+mo+'</td>'+
+      '<td style="padding:8px 10px;border-bottom:1px solid #e0e0e0;text-align:center;color:#311b92;">'+ev+'</td>'+
+      '<td style="padding:8px 10px;border-bottom:1px solid #e0e0e0;">'+chips+'</td>'+
+    '</tr>';
+  });
+
+  var today=dStr(NOW.getFullYear(),NOW.getMonth(),NOW.getDate()-1);
+  var printHtml='<!DOCTYPE html><html lang="mr"><head><meta charset="UTF-8"/>'+
+    '<title>Mess Duty History – '+hmLabel+' '+hy+'</title>'+
+    '<style>body{font-family:Arial,sans-serif;margin:20px;color:#222;}'+
+    'h2{color:#1a3a5c;margin-bottom:4px;}'+
+    '.sub{font-size:12px;color:#888;margin-bottom:16px;}'+
+    'table{width:100%;border-collapse:collapse;font-size:12px;}'+
+    'th{background:#1a3a5c;color:#fff;padding:9px 10px;text-align:left;}'+
+    '@media print{button{display:none;}}'+
+    '</style></head><body>'+
+    '<h2>🛡️ सी-60 रक्षा पथक — मेस ड्युटी History</h2>'+
+    '<div class="sub">एओपी – पिपरखारी &nbsp;|&nbsp; कालावधी: '+hmLabel+' '+hy+' &nbsp;|&nbsp; तारीख: '+today+'</div>'+
+    '<button onclick="window.print()" style="margin-bottom:14px;padding:8px 18px;background:#1a3a5c;color:#fff;border:none;border-radius:7px;font-size:13px;cursor:pointer;">🖨️ Print / PDF Save करा</button>'+
+    '<table><thead><tr>'+
+      '<th>नाव</th><th>बं.न. / हुद्दा</th><th>मोबाईल</th>'+
+      '<th style="text-align:center;">एकूण</th><th style="text-align:center;">🌅 सकाळ</th>'+
+      '<th style="text-align:center;">🌙 संध्याकाळ</th><th>Duty तारखा</th>'+
+    '</tr></thead><tbody>'+rows+'</tbody></table>'+
+    (names.length===0?'<div style="text-align:center;padding:30px;color:#aaa;">नोंद नाही.</div>':'')+
+    '</body></html>';
+
+  var w=window.open('','_blank','width=900,height=700');
+  w.document.write(printHtml);
+  w.document.close();
+}
+
+// ══════════════════════════════════════════════
+//  STATS
+// ══════════════════════════════════════════════
+function renderStats(){
+  var hy=parseInt(document.getElementById('sel-year').value);
+  document.getElementById('stats-year').textContent=hy;
+  var totalDays=0,totalEntries=0,jcount={},mCounts=new Array(12).fill(0);
+  Object.keys(allData).forEach(function(k){
+    var p=k.split('_');if(p.length<3)return;
+    var ky=parseInt(p[0]),km=parseInt(p[1]);if(ky!==hy)return;
+    var rec=allData[k],any=false;
+    [rec.m1,rec.m2,rec.e1,rec.e2].forEach(function(n){if(!n)return;any=true;jcount[n]=(jcount[n]||0)+1;totalEntries++;});
+    if(any){totalDays++;mCounts[km]++;}
+  });
+  document.getElementById('stats-grid').innerHTML=
+    '<div class="stat-card"><div class="stat-val">'+totalDays+'</div><div class="stat-lbl">दिवस भरले</div></div>'+
+    '<div class="stat-card"><div class="stat-val">'+totalEntries+'</div><div class="stat-lbl">एकूण नोंदी</div></div>'+
+    '<div class="stat-card"><div class="stat-val">'+Object.keys(jcount).length+'</div><div class="stat-lbl">सक्रिय जवान</div></div>'+
+    '<div class="stat-card"><div class="stat-val">'+personnel.length+'</div><div class="stat-lbl">एकूण जवान</div></div>';
+  var mx=Math.max.apply(null,mCounts)||1;
+  var bar=document.getElementById('month-bar');bar.innerHTML='';
+  mCounts.forEach(function(v){var d=document.createElement('div');d.className='mbar';d.style.height=Math.round(v/mx*56)+'px';d.title=v+' दिवस';bar.appendChild(d);});
+  var sorted=Object.keys(jcount).sort(function(a,b){return jcount[b]-jcount[a];}).slice(0,5);
+  var t5=document.getElementById('top5');
+  if(!sorted.length){t5.innerHTML='<div class="no-data">नोंद नाही.</div>';return;}
+  var h='';
+  sorted.forEach(function(n,i){
+    var pp=personnel.find(function(x){return x.name===n;});
+    h+='<div class="top-row"><div><strong>'+(i+1)+'. '+n+'</strong>'+(pp?'<span class="rank-badge">'+pp.rank+'</span>':'')+'</div><span class="top-badge">'+jcount[n]+' वेळा</span></div>';
+  });
+  t5.innerHTML=h;
+}
+
+// ══════════════════════════════════════════════
+//  PERSONNEL
+// ══════════════════════════════════════════════
+function addPersonnel(){
+  if(!isAdmin){alert('Admin PIN शिवाय edit करता येणार नाही.');return;}
+  var inp=document.getElementById('new-name'),name=inp.value.trim();
+  if(!name){alert('नाव टाका.');return;}
+  if(personnel.length>=23){alert('जास्तीत जास्त 23 जवान.');return;}
+  if(personnel.find(function(p){return p.name===name;})){alert('हे नाव आधीच आहे.');return;}
+  personnel.push({bno:'',rank:'',name:name,phone:''});saveAll();inp.value='';renderPersonnel();refreshDDs();
+}
+function delP(i){
+  if(!isAdmin)return;
+  if(!confirm('"'+personnel[i].name+'" काढायचे का?'))return;
+  personnel.splice(i,1);saveAll();renderPersonnel();refreshDDs();
+}
+function savePhone(i){
+  if(!isAdmin)return;
+  var inp=document.getElementById('phone_'+i);
+  var ph=inp.value.trim();
+  if(ph&&(ph.length<10||isNaN(ph))){alert('10 आकडी नंबर टाका.');return;}
+  personnel[i].phone=ph;saveAll();
+  inp.style.borderColor='#66bb6a';
+  setTimeout(function(){inp.style.borderColor='';},1500);
+}
+function renderPersonnel(){
+  document.getElementById('p-count').textContent=personnel.length;
+  var ul=document.getElementById('p-list');ul.innerHTML='';
+  personnel.forEach(function(p,i){
+    var li=document.createElement('li');
+    li.innerHTML=
+      '<div class="per-name-row">'+
+        '<span class="per-name">'+(i+1)+'. '+p.name+
+          (p.rank?'<span class="rank-badge">'+p.rank+'</span>':'')+
+          '<span class="bno-tag">'+p.bno+'</span>'+
+        '</span>'+
+        (isAdmin?'<button class="pdel" onclick="delP('+i+')">✕</button>':'')+
+      '</div>'+
+      '<div class="per-phone-row">'+
+        '<input type="tel" id="phone_'+i+'" placeholder="मोबाईल नंबर (10 आकडे)" value="'+(p.phone||'')+'" maxlength="10" '+(isAdmin?'':'disabled')+'/>'+
+        (isAdmin?'<button onclick="savePhone('+i+')">💾</button>':'')+
+      '</div>';
+    ul.appendChild(li);
+  });
+}
+
+// ══════════════════════════════════════════════
+//  PWA
+// ══════════════════════════════════════════════
+window.addEventListener('beforeinstallprompt',function(e){
+  e.preventDefault();deferredPrompt=e;
+  if(!localStorage.getItem('install_dismissed'))document.getElementById('install-banner').classList.add('show');
+});
+function doInstall(){
+  document.getElementById('install-banner').classList.remove('show');
+  if(deferredPrompt){deferredPrompt.prompt();deferredPrompt.userChoice.then(function(){deferredPrompt=null;});}
+}
+function dismissInstall(){document.getElementById('install-banner').classList.remove('show');localStorage.setItem('install_dismissed','1');}
+window.addEventListener('appinstalled',function(){document.getElementById('install-banner').classList.remove('show');});
+
+if('serviceWorker' in navigator){
+  window.addEventListener('load',function(){navigator.serviceWorker.register('./sw.js').catch(function(){});});
+}
+
+// PIN input — Enter key
+document.getElementById('pin-input').addEventListener('keydown',function(e){if(e.key==='Enter')tryLogin();});
+// Init lock screen (no auto-enter)
+load();
+</script>
+</body>
+</html>

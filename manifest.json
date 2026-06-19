@@ -1,0 +1,25 @@
+{
+  "name": "सी-60 मेस ड्युटी चार्ट",
+  "short_name": "Mess Duty",
+  "description": "सी-60 रक्षा पथक – मेस ड्युटी चार्ट अॅप",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#f0f2f5",
+  "theme_color": "#1a3a5c",
+  "orientation": "portrait",
+  "lang": "mr",
+  "icons": [
+    {
+      "src": "./icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "./icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
