@@ -16,7 +16,7 @@ html,body{height:100%;overflow-x:hidden;}
 body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f2f5;color:#222;}
 .container{max-width:500px;margin:0 auto;padding:10px 10px 90px;}
 
-/* LOCK SCREEN */
+/* LOCK */
 #lock-screen{position:fixed;inset:0;background:linear-gradient(135deg,#1a3a5c,#0d2240);z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;}
 #lock-screen.hide{display:none;}
 .lock-logo{font-size:56px;margin-bottom:12px;}
@@ -30,25 +30,25 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f2f5;color:#222;}
 .btn-admin{background:linear-gradient(135deg,#1a3a5c,#2563a8);color:#fff;}
 .btn-view{background:#f0f4f8;color:#1a3a5c;border:1.5px solid #d0d7e0;}
 .lock-err{color:#e53935;font-size:12px;text-align:center;min-height:18px;margin-top:4px;}
-.mode-badge{display:inline-flex;align-items:center;gap:5px;font-size:11px;padding:4px 10px;border-radius:20px;font-weight:700;margin-left:8px;}
+.mode-badge{display:inline-flex;align-items:center;gap:5px;font-size:11px;padding:4px 10px;border-radius:20px;font-weight:700;}
 .badge-admin{background:#e8f5e9;color:#2e7d32;}
 .badge-view{background:#fff8e1;color:#f57f17;}
-.lock-out-btn{background:none;border:1px solid #d0d7e0;border-radius:8px;padding:5px 12px;font-size:11px;cursor:pointer;color:#888;}
 
 /* HEADER */
 .header{background:linear-gradient(135deg,#1a3a5c,#2563a8);color:#fff;border-radius:14px;padding:12px 14px;margin-bottom:12px;box-shadow:0 3px 10px #1a3a5c44;}
 .header-top{display:flex;align-items:center;justify-content:space-between;}
 .header h1{font-size:15px;font-weight:700;}
 .header p{font-size:11px;opacity:.82;margin-top:2px;}
+.logout-btn{background:none;border:1px solid #ffffff55;border-radius:7px;padding:4px 10px;font-size:10px;cursor:pointer;color:#fff;}
 
-/* MONTH ROW */
+/* MONTH */
 .month-row{display:flex;align-items:center;gap:6px;margin-bottom:10px;}
 .month-row select{flex:1;padding:9px 8px;border:1.5px solid #d0d7e0;border-radius:9px;font-size:13px;background:#fff;color:#222;font-weight:500;}
 .mnav{background:#fff;border:1.5px solid #d0d7e0;border-radius:9px;padding:8px 13px;cursor:pointer;font-size:15px;font-weight:700;color:#1a3a5c;}
 
 /* TABS */
-.tab-bar{display:flex;gap:3px;margin-bottom:10px;background:#fff;border-radius:12px;padding:4px;border:1.5px solid #e4e8f0;box-shadow:0 1px 4px #0001;}
-.tab{flex:1;padding:7px 2px;border:none;border-radius:9px;background:none;font-size:10px;cursor:pointer;color:#666;text-align:center;font-weight:500;transition:.15s;}
+.tab-bar{display:flex;gap:3px;margin-bottom:10px;background:#fff;border-radius:12px;padding:4px;border:1.5px solid #e4e8f0;box-shadow:0 1px 4px #0001;overflow-x:auto;}
+.tab{flex:1;min-width:52px;padding:7px 2px;border:none;border-radius:9px;background:none;font-size:10px;cursor:pointer;color:#666;text-align:center;font-weight:500;white-space:nowrap;}
 .tab.active{background:#1a3a5c;color:#fff;font-weight:700;}
 .section{display:none;}
 .section.active{display:block;}
@@ -62,7 +62,7 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f2f5;color:#222;}
 .prog-bg{height:7px;background:#eef0f5;border-radius:4px;overflow:hidden;}
 .prog-fill{height:100%;background:linear-gradient(90deg,#2e7d32,#66bb6a);border-radius:4px;transition:width .4s;}
 .mini-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(30px,1fr));gap:3px;margin-top:8px;}
-.mc{height:29px;border-radius:6px;border:1.5px solid #e0e0e0;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:9px;color:#aaa;background:#fff;transition:.1s;font-weight:500;}
+.mc{height:29px;border-radius:6px;border:1.5px solid #e0e0e0;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:9px;color:#aaa;background:#fff;font-weight:500;}
 .mc.ad{border:2px solid #1565c0;background:#e8f0fe;color:#1565c0;font-weight:700;}
 .mc.fi{background:#e8f5e9;border-color:#81c784;color:#2e7d32;font-size:12px;}
 
@@ -79,16 +79,16 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f2f5;color:#222;}
 
 /* SHIFT */
 .shift-card{background:#fff;border:1.5px solid #e4e8f0;border-radius:12px;padding:12px 13px;margin-bottom:8px;}
-.shift-hd{font-size:12px;font-weight:700;color:#555;margin-bottom:8px;display:flex;align-items:center;gap:4px;}
+.shift-hd{font-size:12px;font-weight:700;color:#555;margin-bottom:8px;}
 .two-col{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
 .ig label{font-size:10px;color:#aaa;display:block;margin-bottom:3px;font-weight:600;text-transform:uppercase;}
 .ig select,.ig input{width:100%;padding:8px;border:1.5px solid #d0d7e0;border-radius:8px;font-size:12px;background:#fff;color:#222;font-weight:500;}
 .ig select:disabled,.ig input:disabled{background:#f5f5f5;color:#aaa;cursor:not-allowed;}
-.save-btn{width:100%;margin-top:10px;padding:12px;background:linear-gradient(135deg,#1a3a5c,#2563a8);border:none;border-radius:11px;font-size:14px;font-weight:700;cursor:pointer;color:#fff;box-shadow:0 3px 8px #1a3a5c33;}
-.save-btn:disabled{background:#ccc;cursor:not-allowed;box-shadow:none;}
+.save-btn{width:100%;margin-top:10px;padding:12px;background:linear-gradient(135deg,#1a3a5c,#2563a8);border:none;border-radius:11px;font-size:14px;font-weight:700;cursor:pointer;color:#fff;}
+.save-btn:disabled{background:#ccc;cursor:not-allowed;}
 .save-btn.saved{background:linear-gradient(135deg,#2e7d32,#43a047);}
 
-/* READONLY NOTICE */
+/* RO NOTICE */
 .ro-notice{background:#fff8e1;border:1.5px solid #ffe082;border-radius:10px;padding:10px 14px;font-size:12px;color:#f57f17;margin-bottom:10px;display:flex;align-items:center;gap:7px;}
 
 /* MSG */
@@ -99,18 +99,43 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f2f5;color:#222;}
 .j-row:last-child{border-bottom:none;}
 .ji{font-size:12px;font-weight:700;}
 .js{font-size:10px;color:#aaa;margin-top:1px;}
-.wa-btn{padding:7px 11px;border:1.5px solid #2e7d32;border-radius:8px;background:#e8f5e9;color:#1b5e20;font-size:11px;cursor:pointer;font-weight:700;white-space:nowrap;}
+.wa-btn{padding:7px 11px;border:1.5px solid #2e7d32;border-radius:8px;background:#e8f5e9;color:#1b5e20;font-size:11px;cursor:pointer;font-weight:700;}
 .ph-box{display:none;margin-top:6px;gap:6px;align-items:center;}
 .ph-box.show{display:flex;}
 .ph-box input{flex:1;padding:7px 9px;border:1.5px solid #d0d7e0;border-radius:8px;font-size:12px;}
 .ph-box button{padding:7px 11px;border:none;border-radius:8px;background:#1a3a5c;color:#fff;font-size:11px;cursor:pointer;font-weight:700;}
 .no-data{text-align:center;color:#bbb;font-size:13px;padding:20px 0;}
 
+/* KHARCH */
+.kharch-tabs{display:flex;gap:5px;margin-bottom:10px;}
+.ktab{flex:1;padding:8px;border:1.5px solid #d0d7e0;border-radius:9px;background:#fff;font-size:11px;cursor:pointer;text-align:center;font-weight:600;color:#666;}
+.ktab.active{background:#1a3a5c;color:#fff;border-color:#1a3a5c;}
+.form-group{margin-bottom:10px;}
+.form-group label{font-size:11px;color:#888;display:block;margin-bottom:4px;font-weight:600;text-transform:uppercase;}
+.form-group input,.form-group select,.form-group textarea{width:100%;padding:9px 10px;border:1.5px solid #d0d7e0;border-radius:9px;font-size:13px;background:#fff;color:#222;}
+.form-group textarea{height:60px;resize:none;}
+.add-btn{width:100%;padding:11px;background:linear-gradient(135deg,#1a3a5c,#2563a8);border:none;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;color:#fff;margin-top:4px;}
+.add-btn:disabled{background:#ccc;cursor:not-allowed;}
+.kharch-item{display:flex;align-items:center;justify-content:space-between;padding:9px 0;border-bottom:1px solid #f5f5f5;}
+.kharch-item:last-child{border-bottom:none;}
+.ki-left{flex:1;}
+.ki-name{font-size:12px;font-weight:700;color:#222;}
+.ki-note{font-size:10px;color:#aaa;margin-top:1px;}
+.ki-amt{font-size:14px;font-weight:700;color:#1a3a5c;margin:0 10px;}
+.ki-del{background:none;border:none;color:#e53935;cursor:pointer;font-size:16px;padding:0 4px;}
+.total-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0 0;border-top:2px solid #e4e8f0;margin-top:4px;}
+.total-lbl{font-size:13px;font-weight:700;color:#555;}
+.total-amt{font-size:18px;font-weight:700;color:#1a3a5c;}
+.summary-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px;}
+.sum-card{background:#fff;border:1.5px solid #e4e8f0;border-radius:12px;padding:12px;text-align:center;}
+.sum-val{font-size:20px;font-weight:700;color:#1a3a5c;}
+.sum-lbl{font-size:10px;color:#aaa;margin-top:2px;}
+
 /* HISTORY */
 .search-bar{width:100%;padding:10px 12px;border:1.5px solid #d0d7e0;border-radius:10px;font-size:13px;background:#fff;margin-bottom:8px;}
 .filter-row{display:flex;gap:6px;margin-bottom:9px;}
 .filter-row select{flex:1;padding:8px;border:1.5px solid #d0d7e0;border-radius:9px;font-size:12px;background:#fff;}
-.pdf-btn{width:100%;padding:11px;background:linear-gradient(135deg,#b71c1c,#e53935);border:none;border-radius:11px;font-size:13px;font-weight:700;cursor:pointer;color:#fff;margin-bottom:10px;box-shadow:0 3px 8px #b71c1c33;}
+.pdf-btn{width:100%;padding:11px;background:linear-gradient(135deg,#b71c1c,#e53935);border:none;border-radius:11px;font-size:13px;font-weight:700;cursor:pointer;color:#fff;margin-bottom:10px;}
 .legend{display:flex;gap:12px;margin-bottom:8px;font-size:11px;color:#666;}
 .leg{display:flex;align-items:center;gap:4px;}
 .ld{width:10px;height:10px;border-radius:3px;}
@@ -151,32 +176,32 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f2f5;color:#222;}
 .add-row button{padding:9px 14px;border:none;border-radius:9px;background:#1a3a5c;color:#fff;font-size:13px;cursor:pointer;font-weight:700;}
 .bno-tag{font-size:10px;color:#90a4ae;margin-left:5px;}
 
-/* INSTALL */
-#install-banner{display:none;position:fixed;bottom:75px;left:50%;transform:translateX(-50%);width:calc(100% - 20px);max-width:480px;background:#1a3a5c;color:#fff;border-radius:12px;padding:12px 16px;z-index:500;box-shadow:0 4px 16px #0004;align-items:center;justify-content:space-between;gap:10px;}
-#install-banner.show{display:flex;}
-#install-banner p{font-size:12px;line-height:1.5;flex:1;}
-#install-banner button{padding:7px 13px;border:none;border-radius:8px;background:#fff;color:#1a3a5c;font-weight:700;font-size:12px;cursor:pointer;white-space:nowrap;}
-.ib-close{background:none!important;color:#fff!important;font-size:18px;padding:0!important;}
-
 /* MODAL */
 .modal-bg{display:none;position:fixed;inset:0;background:#0007;z-index:800;align-items:center;justify-content:center;}
 .modal-bg.show{display:flex;}
-.modal{background:#fff;border-radius:16px;padding:22px;width:90%;max-width:320px;}
+.modal{background:#fff;border-radius:16px;padding:22px;width:90%;max-width:340px;}
 .modal h3{font-size:15px;font-weight:700;color:#1a3a5c;margin-bottom:12px;}
 .modal input{width:100%;padding:10px;border:1.5px solid #d0d7e0;border-radius:9px;font-size:14px;margin-bottom:10px;letter-spacing:4px;text-align:center;}
-.modal-btns{display:flex;gap:8px;}
+.modal-btns{display:flex;gap:8px;margin-top:8px;}
 .modal-btns button{flex:1;padding:10px;border:none;border-radius:9px;font-size:13px;font-weight:700;cursor:pointer;}
 .btn-ok{background:#1a3a5c;color:#fff;}
 .btn-cancel{background:#f0f0f0;color:#555;}
+
+/* INSTALL */
+#install-banner{display:none;position:fixed;bottom:75px;left:50%;transform:translateX(-50%);width:calc(100% - 20px);max-width:480px;background:#1a3a5c;color:#fff;border-radius:12px;padding:12px 16px;z-index:500;box-shadow:0 4px 16px #0004;gap:10px;}
+#install-banner.show{display:flex;align-items:center;justify-content:space-between;}
+#install-banner p{font-size:12px;line-height:1.5;flex:1;}
+#install-banner button{padding:7px 13px;border:none;border-radius:8px;background:#fff;color:#1a3a5c;font-weight:700;font-size:12px;cursor:pointer;white-space:nowrap;}
+.ib-close{background:none!important;color:#fff!important;font-size:18px;padding:0!important;}
 </style>
 </head>
 <body>
 
-<!-- LOCK SCREEN -->
+<!-- LOCK -->
 <div id="lock-screen">
   <div class="lock-logo">🛡️</div>
   <div class="lock-title">सी-60 रक्षा पथक</div>
-  <div class="lock-sub">मेस ड्युटी चार्ट<br>एओपी – पिपरखारी</div>
+  <div class="lock-sub">मेस ड्युटी व खर्च व्यवस्थापन</div>
   <div class="lock-card">
     <div class="lock-label">Admin PIN टाका (edit साठी)</div>
     <input type="password" class="lock-input" id="pin-input" maxlength="6" placeholder="••••••" inputmode="numeric"/>
@@ -186,34 +211,34 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f2f5;color:#222;}
   </div>
 </div>
 
-<!-- CHANGE PIN MODAL -->
+<!-- PIN MODAL -->
 <div class="modal-bg" id="pin-modal">
   <div class="modal">
     <h3>🔑 PIN बदला</h3>
-    <div style="font-size:11px;color:#888;margin-bottom:8px;">जुना PIN</div>
+    <div style="font-size:11px;color:#888;margin-bottom:6px;">जुना PIN</div>
     <input type="password" id="old-pin" maxlength="6" placeholder="••••••" inputmode="numeric"/>
-    <div style="font-size:11px;color:#888;margin-bottom:8px;">नवीन PIN (4-6 अंक)</div>
+    <div style="font-size:11px;color:#888;margin-bottom:6px;">नवीन PIN (4-6 अंक)</div>
     <input type="password" id="new-pin" maxlength="6" placeholder="••••••" inputmode="numeric"/>
     <div class="lock-err" id="pin-modal-err"></div>
-    <div class="modal-btns" style="margin-top:10px;">
-      <button class="modal-btns btn-cancel" onclick="closePinModal()" style="flex:1;padding:10px;border:none;border-radius:9px;font-size:13px;font-weight:700;cursor:pointer;background:#f0f0f0;color:#555;">रद्द</button>
-      <button class="modal-btns btn-ok" onclick="changePin()" style="flex:1;padding:10px;border:none;border-radius:9px;font-size:13px;font-weight:700;cursor:pointer;background:#1a3a5c;color:#fff;">बदला</button>
+    <div class="modal-btns">
+      <button class="btn-cancel" onclick="closePinModal()">रद्द</button>
+      <button class="btn-ok" onclick="changePin()">बदला</button>
     </div>
   </div>
 </div>
 
-<!-- MAIN APP -->
+<!-- MAIN -->
 <div class="container">
 
   <div class="header">
     <div class="header-top">
       <div>
         <h1>🛡️ सी-60 रक्षा पथक</h1>
-        <p id="hdr-sub">मेस ड्युटी चार्ट | एओपी – पिपरखारी</p>
+        <p id="hdr-sub">मेस ड्युटी चार्ट</p>
       </div>
       <div style="display:flex;flex-direction:column;align-items:flex-end;gap:5px;">
         <span class="mode-badge" id="mode-badge">—</span>
-        <button class="lock-out-btn" onclick="logout()" style="background:none;border:1px solid #ffffff55;border-radius:7px;padding:4px 10px;font-size:10px;cursor:pointer;color:#fff;">🚪 बाहेर</button>
+        <button class="logout-btn" onclick="logout()">🚪 बाहेर</button>
       </div>
     </div>
   </div>
@@ -235,6 +260,7 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f2f5;color:#222;}
   <div class="tab-bar">
     <button class="tab active" onclick="switchTab('entry',this)">📋 नोंद</button>
     <button class="tab" onclick="switchTab('msg',this)">📲 Message</button>
+    <button class="tab" onclick="switchTab('kharch',this)">💰 खर्च</button>
     <button class="tab" onclick="switchTab('history',this)">📊 History</button>
     <button class="tab" onclick="switchTab('stats',this)">📈 Stats</button>
     <button class="tab" onclick="switchTab('personnel',this)">👥 जवान</button>
@@ -242,9 +268,7 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f2f5;color:#222;}
 
   <!-- ENTRY -->
   <div id="sec-entry" class="section active">
-    <div id="ro-notice-entry" class="ro-notice" style="display:none;">
-      👁️ View Only Mode — फक्त पाहता येईल, edit करता येणार नाही.
-    </div>
+    <div id="ro-notice-entry" class="ro-notice" style="display:none;">👁️ View Only — edit करता येणार नाही.</div>
     <div class="card">
       <div class="prog-hd"><span id="month-name-label">—</span><span id="prog-count">0/0 भरले</span></div>
       <div class="prog-bg"><div class="prog-fill" id="prog-bar" style="width:0%"></div></div>
@@ -270,6 +294,24 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f2f5;color:#222;}
         <div class="ig"><label>जवान २</label><select id="e2" onchange="markChanged()"></select></div>
       </div>
     </div>
+
+    <!-- MESS ADVANCE -->
+    <div class="shift-card">
+      <div class="shift-hd">💵 Mess Advance — पैसे दिलेले जवान</div>
+      <div class="two-col">
+        <div class="ig"><label>जवान १</label><select id="a1" onchange="markChanged()"></select></div>
+        <div class="ig"><label>रक्कम (₹)</label><input type="number" id="a1amt" placeholder="0" onchange="markChanged()"/></div>
+      </div>
+      <div class="two-col" style="margin-top:8px;">
+        <div class="ig"><label>जवान २</label><select id="a2" onchange="markChanged()"></select></div>
+        <div class="ig"><label>रक्कम (₹)</label><input type="number" id="a2amt" placeholder="0" onchange="markChanged()"/></div>
+      </div>
+      <div class="two-col" style="margin-top:8px;">
+        <div class="ig"><label>जवान ३</label><select id="a3" onchange="markChanged()"></select></div>
+        <div class="ig"><label>रक्कम (₹)</label><input type="number" id="a3amt" placeholder="0" onchange="markChanged()"/></div>
+      </div>
+    </div>
+
     <button class="save-btn" id="save-btn" onclick="saveDay()">💾 जतन करा</button>
   </div>
 
@@ -280,6 +322,60 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f2f5;color:#222;}
       <button class="msg-tab" id="mt-tmr" onclick="showMsgTab('tmr')">📅 उद्याची Duty</button>
     </div>
     <div id="msg-content"></div>
+  </div>
+
+  <!-- KHARCH -->
+  <div id="sec-kharch" class="section">
+    <div id="ro-notice-kharch" class="ro-notice" style="display:none;">👁️ View Only — खर्च add करता येणार नाही.</div>
+
+    <div class="kharch-tabs">
+      <button class="ktab active" id="kt-kirana" onclick="showKharchTab('kirana')">🛒 किराणा/सामान</button>
+      <button class="ktab" id="kt-advance" onclick="showKharchTab('advance')">💵 Mess Advance</button>
+    </div>
+
+    <!-- KIRANA -->
+    <div id="kk-kirana">
+      <div class="card">
+        <div class="card-title">🛒 किराणा / सामान खर्च नोंद</div>
+        <div class="form-group">
+          <label>वस्तूचे नाव</label>
+          <input type="text" id="ki-name" placeholder="उदा. तांदूळ, डाळ, तेल..." maxlength="60"/>
+        </div>
+        <div class="two-col">
+          <div class="form-group">
+            <label>रक्कम (₹)</label>
+            <input type="number" id="ki-amt" placeholder="0"/>
+          </div>
+          <div class="form-group">
+            <label>खरेदी केलेले जवान</label>
+            <select id="ki-by"><option value="">— निवडा —</option></select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>टीप (optional)</label>
+          <textarea id="ki-note" placeholder="अतिरिक्त माहिती..."></textarea>
+        </div>
+        <button class="add-btn" id="ki-add-btn" onclick="addKirana()">+ किराणा खर्च जोडा</button>
+      </div>
+      <div class="card" id="kirana-list-card">
+        <div class="card-title">📋 या महिन्याचा किराणा खर्च</div>
+        <div id="kirana-list"></div>
+        <div class="total-row"><span class="total-lbl">एकूण खर्च:</span><span class="total-amt" id="kirana-total">₹0</span></div>
+      </div>
+    </div>
+
+    <!-- ADVANCE -->
+    <div id="kk-advance" style="display:none;">
+      <div class="card">
+        <div class="card-title">💵 Mess Advance Summary</div>
+        <div id="advance-summary"></div>
+      </div>
+      <div class="card">
+        <div class="card-title">📋 या महिन्याचे Advance नोंदी</div>
+        <div id="advance-list"></div>
+        <div class="total-row"><span class="total-lbl">एकूण Advance:</span><span class="total-amt" id="advance-total">₹0</span></div>
+      </div>
+    </div>
   </div>
 
   <!-- HISTORY -->
@@ -326,9 +422,7 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f2f5;color:#222;}
 
   <!-- PERSONNEL -->
   <div id="sec-personnel" class="section">
-    <div id="ro-notice-per" class="ro-notice" style="display:none;">
-      👁️ View Only — नंबर पाहता येतील, edit करता येणार नाही.
-    </div>
+    <div id="ro-notice-per" class="ro-notice" style="display:none;">👁️ View Only — edit करता येणार नाही.</div>
     <div class="card">
       <div class="card-title">👥 जवानांची यादी (<span id="p-count">0</span>/23)
         <span id="admin-pin-btn" style="margin-left:auto;font-size:10px;cursor:pointer;color:#1565c0;font-weight:600;" onclick="openPinModal()">🔑 PIN बदला</span>
@@ -343,7 +437,7 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f2f5;color:#222;}
     </div>
   </div>
 
-</div><!-- /container -->
+</div>
 
 <!-- Install Banner -->
 <div id="install-banner">
@@ -353,74 +447,64 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f2f5;color:#222;}
 </div>
 
 <script>
-// ══════════════════════════════════════════════
-//  DATA KEYS & DEFAULTS
-// ══════════════════════════════════════════════
-var DKEY='mdc_data_v6',PKEY='mdc_phones_v6',PERKEY='mdc_per_v6',PINKEY='mdc_pin_v6';
-var allData={},personnel=[];
+// ══ KEYS & DEFAULTS ══════════════════════════════════
+var DKEY='mdc_data_v7',PERKEY='mdc_per_v7',PINKEY='mdc_pin_v7',KHKEY='mdc_kh_v7';
+var allData={},personnel=[],kharchData={};
 var MN=['जानेवारी','फेब्रुवारी','मार्च','एप्रिल','मे','जून','जुलै','ऑगस्ट','सप्टेंबर','ऑक्टोबर','नोव्हेंबर','डिसेंबर'];
 var WD=['रविवार','सोमवार','मंगळवार','बुधवार','गुरुवार','शुक्रवार','शनिवार'];
-var NOW=new Date(),curY=NOW.getFullYear(),curM=NOW.getMonth(),curD=NOW.getDate()-1,curMsgTab='today';
-var isAdmin=false;
+var NOW=new Date(),curY=NOW.getFullYear(),curM=NOW.getMonth(),curD=NOW.getDate()-1;
+var curMsgTab='today',curKharchTab='kirana',isAdmin=false;
 var deferredPrompt=null;
 
 var DEFAULT_P=[
-  {bno:'903', rank:'पो.हवा.',name:'गिरीधर रक्षा',      phone:''},
-  {bno:'1422',rank:'पो.हवा.',name:'शिशुपाल दमाहे',    phone:''},
-  {bno:'1691',rank:'पो.हवा.',name:'उमेश टेंभरे',       phone:''},
-  {bno:'2040',rank:'पो.ना.', name:'मनिषकुमार ताराम',   phone:''},
-  {bno:'2223',rank:'पो.ना.', name:'महेश सयाम',          phone:''},
-  {bno:'1842',rank:'पो.ना.', name:'विजय बिसेन',         phone:''},
-  {bno:'1853',rank:'पो.शि.', name:'अमृतलाल वाढीवे',    phone:''},
-  {bno:'1905',rank:'पो.शि.', name:'मनोहर बागडेहरीया',  phone:''},
-  {bno:'1978',rank:'पो.शि.', name:'गोविंद इंद्रवाड',   phone:''},
-  {bno:'2198',rank:'पो.शि.', name:'उमेश कुवर',          phone:''},
-  {bno:'2204',rank:'पो.शि.', name:'अमर नेताम',          phone:''},
-  {bno:'1792',rank:'पो.शि.', name:'सुजित यादव',         phone:''},
-  {bno:'815', rank:'पो.शि.', name:'शिवदास गुरनुले',    phone:''},
-  {bno:'1599',rank:'पो.शि.', name:'राहुल सलामे',        phone:''},
-  {bno:'1288',rank:'पो.शि.', name:'गणेश घुगे',          phone:''},
-  {bno:'1810',rank:'पो.शि.', name:'दत्तात्रय जगताप',   phone:''},
-  {bno:'1722',rank:'पो.शि.', name:'दिपक मुकनर',         phone:''},
-  {bno:'1018',rank:'चा.पो.हवा.',name:'अशोक महारवाडे',  phone:''},
-  {bno:'1826',rank:'चा.पो.ना.',name:'महेश गिर्हेपुंजे', phone:''},
-  {bno:'506', rank:'चा.पो.शि.',name:'दिनेश लोदी',      phone:''}
+  {bno:'903', rank:'पो.हवा.',name:'गिरीधर रक्षा',phone:''},
+  {bno:'1422',rank:'पो.हवा.',name:'शिशुपाल दमाहे',phone:''},
+  {bno:'1691',rank:'पो.हवा.',name:'उमेश टेंभरे',phone:''},
+  {bno:'2040',rank:'पो.ना.',name:'मनिषकुमार ताराम',phone:''},
+  {bno:'2223',rank:'पो.ना.',name:'महेश सयाम',phone:''},
+  {bno:'1842',rank:'पो.ना.',name:'विजय बिसेन',phone:''},
+  {bno:'1853',rank:'पो.शि.',name:'अमृतलाल वाढीवे',phone:''},
+  {bno:'1905',rank:'पो.शि.',name:'मनोहर बागडेहरीया',phone:''},
+  {bno:'1978',rank:'पो.शि.',name:'गोविंद इंद्रवाड',phone:''},
+  {bno:'2198',rank:'पो.शि.',name:'उमेश कुवर',phone:''},
+  {bno:'2204',rank:'पो.शि.',name:'अमर नेताम',phone:''},
+  {bno:'1792',rank:'पो.शि.',name:'सुजित यादव',phone:''},
+  {bno:'815', rank:'पो.शि.',name:'शिवदास गुरनुले',phone:''},
+  {bno:'1599',rank:'पो.शि.',name:'राहुल सलामे',phone:''},
+  {bno:'1288',rank:'पो.शि.',name:'गणेश घुगे',phone:''},
+  {bno:'1810',rank:'पो.शि.',name:'दत्तात्रय जगताप',phone:''},
+  {bno:'1722',rank:'पो.शि.',name:'दिपक मुकनर',phone:''},
+  {bno:'1018',rank:'चा.पो.हवा.',name:'अशोक महारवाडे',phone:''},
+  {bno:'1826',rank:'चा.पो.ना.',name:'महेश गिर्हेपुंजे',phone:''},
+  {bno:'506', rank:'चा.पो.शि.',name:'दिनेश लोदी',phone:''}
 ];
 
-// ══════════════════════════════════════════════
-//  LOAD / SAVE
-// ══════════════════════════════════════════════
+// ══ LOAD/SAVE ═════════════════════════════════════════
 function load(){
   try{allData=JSON.parse(localStorage.getItem(DKEY)||'{}');}catch(e){allData={};}
-  try{
-    var p=JSON.parse(localStorage.getItem(PERKEY)||'null');
-    personnel=p&&p.length?p:JSON.parse(JSON.stringify(DEFAULT_P));
-  }catch(e){personnel=JSON.parse(JSON.stringify(DEFAULT_P));}
-  if(!localStorage.getItem(PINKEY)) localStorage.setItem(PINKEY,'1234');
+  try{kharchData=JSON.parse(localStorage.getItem(KHKEY)||'{}');}catch(e){kharchData={};}
+  try{var p=JSON.parse(localStorage.getItem(PERKEY)||'null');personnel=p&&p.length?p:JSON.parse(JSON.stringify(DEFAULT_P));}
+  catch(e){personnel=JSON.parse(JSON.stringify(DEFAULT_P));}
+  if(!localStorage.getItem(PINKEY))localStorage.setItem(PINKEY,'1234');
 }
 function saveAll(){
   try{localStorage.setItem(DKEY,JSON.stringify(allData));}catch(e){}
   try{localStorage.setItem(PERKEY,JSON.stringify(personnel));}catch(e){}
+  try{localStorage.setItem(KHKEY,JSON.stringify(kharchData));}catch(e){}
 }
 function getPin(){return localStorage.getItem(PINKEY)||'1234';}
+function mkKey(y,m){return y+'_'+m;}
 
-// ══════════════════════════════════════════════
-//  AUTH
-// ══════════════════════════════════════════════
+// ══ AUTH ══════════════════════════════════════════════
 function tryLogin(){
   var pin=document.getElementById('pin-input').value.trim();
-  if(pin===getPin()){
-    isAdmin=true; enterApp();
-  } else {
-    document.getElementById('lock-err').textContent='❌ चुकीचा PIN. पुन्हा प्रयत्न करा.';
-    document.getElementById('pin-input').value='';
-  }
+  if(pin===getPin()){isAdmin=true;enterApp();}
+  else{document.getElementById('lock-err').textContent='❌ चुकीचा PIN.';document.getElementById('pin-input').value='';}
 }
 function viewOnly(){isAdmin=false;enterApp();}
 function enterApp(){
   document.getElementById('lock-screen').classList.add('hide');
-  applyMode();
-  initYears();load();renderEntry();
+  load();applyMode();initYears();renderEntry();
 }
 function logout(){
   isAdmin=false;
@@ -429,48 +513,33 @@ function logout(){
   document.getElementById('lock-screen').classList.remove('hide');
 }
 function applyMode(){
-  var badge=document.getElementById('mode-badge');
-  if(isAdmin){
-    badge.textContent='🔐 Admin';badge.className='mode-badge badge-admin';
-  } else {
-    badge.textContent='👁️ View Only';badge.className='mode-badge badge-view';
-  }
-  // entry tab
-  var ro=document.getElementById('ro-notice-entry');
-  ro.style.display=isAdmin?'none':'flex';
-  ['m1','m2','e1','e2'].forEach(function(id){
+  var b=document.getElementById('mode-badge');
+  b.textContent=isAdmin?'🔐 Admin':'👁️ View Only';
+  b.className='mode-badge '+(isAdmin?'badge-admin':'badge-view');
+  document.getElementById('ro-notice-entry').style.display=isAdmin?'none':'flex';
+  document.getElementById('ro-notice-per').style.display=isAdmin?'none':'flex';
+  document.getElementById('ro-notice-kharch').style.display=isAdmin?'none':'flex';
+  ['m1','m2','e1','e2','a1','a1amt','a2','a2amt','a3','a3amt'].forEach(function(id){
     var el=document.getElementById(id);if(el)el.disabled=!isAdmin;
   });
-  var sb=document.getElementById('save-btn');
-  if(sb){sb.disabled=!isAdmin;}
-  // personnel
-  document.getElementById('ro-notice-per').style.display=isAdmin?'none':'flex';
+  var sb=document.getElementById('save-btn');if(sb)sb.disabled=!isAdmin;
+  var kb=document.getElementById('ki-add-btn');if(kb)kb.disabled=!isAdmin;
   document.getElementById('add-row-wrap').style.display=isAdmin?'block':'none';
   document.getElementById('admin-pin-btn').style.display=isAdmin?'inline':'none';
 }
 
 // PIN MODAL
-function openPinModal(){
-  document.getElementById('pin-modal').classList.add('show');
-  document.getElementById('old-pin').value='';
-  document.getElementById('new-pin').value='';
-  document.getElementById('pin-modal-err').textContent='';
-}
+function openPinModal(){document.getElementById('pin-modal').classList.add('show');document.getElementById('old-pin').value='';document.getElementById('new-pin').value='';document.getElementById('pin-modal-err').textContent='';}
 function closePinModal(){document.getElementById('pin-modal').classList.remove('show');}
 function changePin(){
-  var op=document.getElementById('old-pin').value.trim();
-  var np=document.getElementById('new-pin').value.trim();
+  var op=document.getElementById('old-pin').value.trim(),np=document.getElementById('new-pin').value.trim();
   var err=document.getElementById('pin-modal-err');
-  if(op!==getPin()){err.textContent='❌ जुना PIN चुकीचा आहे.';return;}
-  if(!np||np.length<4){err.textContent='❌ नवीन PIN किमान 4 अंक असावा.';return;}
-  localStorage.setItem(PINKEY,np);
-  closePinModal();
-  alert('✅ PIN यशस्वीरित्या बदलला!');
+  if(op!==getPin()){err.textContent='❌ जुना PIN चुकीचा.';return;}
+  if(!np||np.length<4){err.textContent='❌ नवीन PIN किमान 4 अंक.';return;}
+  localStorage.setItem(PINKEY,np);closePinModal();alert('✅ PIN बदलला!');
 }
 
-// ══════════════════════════════════════════════
-//  HELPERS
-// ══════════════════════════════════════════════
+// ══ HELPERS ═══════════════════════════════════════════
 function dim(y,m){return new Date(y,m+1,0).getDate();}
 function dStr(y,m,d){return String(d+1).padStart(2,'0')+'/'+String(m+1).padStart(2,'0')+'/'+y;}
 function wDay(y,m,d){return WD[new Date(y,m,d+1).getDay()];}
@@ -480,8 +549,7 @@ function dName(p){return p.bno+' '+p.rank+'/'+p.name;}
 function initYears(){
   var yr=new Date().getFullYear();
   ['sel-year','hist-year'].forEach(function(id){
-    var s=document.getElementById(id);if(!s)return;
-    s.innerHTML='';
+    var s=document.getElementById(id);if(!s)return;s.innerHTML='';
     for(var y=yr-1;y<=yr+3;y++){var o=document.createElement('option');o.value=y;o.textContent=y;if(y===yr)o.selected=true;s.appendChild(o);}
   });
   document.getElementById('sel-month').value=curM;
@@ -490,41 +558,33 @@ function initYears(){
 }
 
 function refreshDDs(){
-  ['m1','m2','e1','e2'].forEach(function(id){
+  ['m1','m2','e1','e2','a1','a2','a3','ki-by'].forEach(function(id){
     var s=document.getElementById(id);if(!s)return;
     var cv=s.value;
     s.innerHTML='<option value="">— निवडा —</option>';
-    personnel.forEach(function(p){
-      var o=document.createElement('option');o.value=p.name;o.textContent=dName(p);
-      if(p.name===cv)o.selected=true;s.appendChild(o);
-    });
-    s.disabled=!isAdmin;
+    personnel.forEach(function(p){var o=document.createElement('option');o.value=p.name;o.textContent=dName(p);if(p.name===cv)o.selected=true;s.appendChild(o);});
+    if(['m1','m2','e1','e2','a1','a2','a3'].indexOf(id)>=0)s.disabled=!isAdmin;
   });
 }
 
-// ══════════════════════════════════════════════
-//  MONTH / DAY NAV
-// ══════════════════════════════════════════════
-function onMonthChange(){curM=parseInt(document.getElementById('sel-month').value);curY=parseInt(document.getElementById('sel-year').value);curD=0;renderEntry();}
+// ══ MONTH/DAY NAV ═════════════════════════════════════
+function onMonthChange(){curM=parseInt(document.getElementById('sel-month').value);curY=parseInt(document.getElementById('sel-year').value);curD=0;renderEntry();if(curKharchTab==='kirana')renderKirana();else renderAdvance();}
 function changeMonth(d){curM+=d;if(curM<0){curM=11;curY--;}if(curM>11){curM=0;curY++;}document.getElementById('sel-month').value=curM;document.getElementById('sel-year').value=curY;curD=0;renderEntry();}
 function changeDay(d){var mx=dim(curY,curM)-1;curD=Math.max(0,Math.min(mx,curD+d));renderEntry();}
 
-// ══════════════════════════════════════════════
-//  TAB
-// ══════════════════════════════════════════════
+// ══ TAB ═══════════════════════════════════════════════
 function switchTab(t,el){
   document.querySelectorAll('.tab-bar>.tab').forEach(function(b){b.classList.remove('active');});
   document.querySelectorAll('.section').forEach(function(s){s.classList.remove('active');});
   el.classList.add('active');document.getElementById('sec-'+t).classList.add('active');
   if(t==='msg')renderMsg();
+  if(t==='kharch'){refreshDDs();renderKirana();renderAdvance();}
   if(t==='history')renderHistory();
   if(t==='stats')renderStats();
   if(t==='personnel')renderPersonnel();
 }
 
-// ══════════════════════════════════════════════
-//  ENTRY
-// ══════════════════════════════════════════════
+// ══ ENTRY ═════════════════════════════════════════════
 function renderEntry(){
   document.getElementById('hdr-sub').textContent='मेस ड्युटी चार्ट | '+MN[curM]+' '+curY;
   document.getElementById('month-name-label').textContent=MN[curM]+' '+curY;
@@ -533,8 +593,10 @@ function renderEntry(){
   var rec=allData[rk(curY,curM,curD)]||{};
   document.getElementById('m1').value=rec.m1||'';document.getElementById('m2').value=rec.m2||'';
   document.getElementById('e1').value=rec.e1||'';document.getElementById('e2').value=rec.e2||'';
-  var b=document.getElementById('save-btn');
-  b.classList.remove('saved');b.textContent='💾 जतन करा';b.disabled=!isAdmin;
+  document.getElementById('a1').value=rec.a1||'';document.getElementById('a1amt').value=rec.a1amt||'';
+  document.getElementById('a2').value=rec.a2||'';document.getElementById('a2amt').value=rec.a2amt||'';
+  document.getElementById('a3').value=rec.a3||'';document.getElementById('a3amt').value=rec.a3amt||'';
+  var b=document.getElementById('save-btn');b.classList.remove('saved');b.textContent='💾 जतन करा';b.disabled=!isAdmin;
   renderMiniGrid();updateProgress();renderTodaySummary();
 }
 function isFilled(y,m,d){var r=allData[rk(y,m,d)]||{};return !!(r.m1||r.m2||r.e1||r.e2);}
@@ -556,7 +618,7 @@ function renderMiniGrid(){
   }
 }
 function renderTodaySummary(){
-  var td=new Date().getDate()-1,tm=new Date().getMonth(),ty=new Date().getFullYear();
+  var td=NOW.getDate()-1,tm=NOW.getMonth(),ty=NOW.getFullYear();
   var rec=allData[rk(ty,tm,td)]||{};
   var s=document.getElementById('today-summary');
   if(ty!==curY||tm!==curM){s.innerHTML='';return;}
@@ -565,17 +627,20 @@ function renderTodaySummary(){
 }
 function markChanged(){if(!isAdmin)return;var b=document.getElementById('save-btn');b.classList.remove('saved');b.textContent='💾 जतन करा';}
 function saveDay(){
-  if(!isAdmin){alert('Edit साठी Admin PIN लागतो.');return;}
-  allData[rk(curY,curM,curD)]={m1:document.getElementById('m1').value,m2:document.getElementById('m2').value,
-    e1:document.getElementById('e1').value,e2:document.getElementById('e2').value};
+  if(!isAdmin)return;
+  allData[rk(curY,curM,curD)]={
+    m1:document.getElementById('m1').value,m2:document.getElementById('m2').value,
+    e1:document.getElementById('e1').value,e2:document.getElementById('e2').value,
+    a1:document.getElementById('a1').value,a1amt:document.getElementById('a1amt').value,
+    a2:document.getElementById('a2').value,a2amt:document.getElementById('a2amt').value,
+    a3:document.getElementById('a3').value,a3amt:document.getElementById('a3amt').value
+  };
   saveAll();
   var b=document.getElementById('save-btn');b.classList.add('saved');b.textContent='✅ जतन झाले!';
   renderMiniGrid();updateProgress();renderTodaySummary();
 }
 
-// ══════════════════════════════════════════════
-//  MESSAGE
-// ══════════════════════════════════════════════
+// ══ MESSAGE ═══════════════════════════════════════════
 function showMsgTab(t){
   curMsgTab=t;
   document.getElementById('mt-today').classList.toggle('active',t==='today');
@@ -595,28 +660,112 @@ function renderMsg(){
   var html='<div class="card"><div class="card-title">📅 '+lbl+' — '+tDay+', '+tDate+'</div>';
   jaw.forEach(function(j,idx){
     var pp=personnel.find(function(x){return x.name===j.name;})||{};
-    var savedPhone=pp.phone||'';
-    var msg=encodeURIComponent('नमस्कार '+j.name+' जी,\n'+tDate+' ('+tDay+') रोजी तुमची मेस ड्युटी आहे.\nपाळी: '+j.shift+'\nकृपया वेळेत हजर राहा.\n\n– सी-60 रक्षा पथक\nएओपी – पिपरखारी');
+    var sp=pp.phone||'';
+    var msg=encodeURIComponent('नमस्कार '+j.name+' जी,\n'+tDate+' ('+tDay+') रोजी तुमची मेस ड्युटी आहे.\nपाळी: '+j.shift+'\nकृपया वेळेत हजर राहा.\n\n– सी-60 रक्षा पथक');
     var uid='pi_'+curMsgTab+'_'+idx;
-    html+='<div class="j-row"><div><div class="ji">'+j.name+(pp.rank?'<span class="rank-badge">'+pp.rank+'</span>':'')+'</div><div class="js">'+j.ic+' '+j.shift+(savedPhone?' | 📞 '+savedPhone:'')+'</div></div>';
+    html+='<div class="j-row"><div><div class="ji">'+j.name+(pp.rank?'<span class="rank-badge">'+pp.rank+'</span>':'')+'</div><div class="js">'+j.ic+' '+j.shift+(sp?' | 📞 '+sp:'')+'</div></div>';
     html+='<button class="wa-btn" onclick="tglPh(\''+uid+'\')">📲 Message</button></div>';
-    html+='<div class="ph-box" id="'+uid+'"><input type="tel" id="ph_'+uid+'" placeholder="10 आकडी नंबर" value="'+savedPhone+'" maxlength="10"/><button onclick="sendWA(\'ph_'+uid+'\',\''+j.name+'\',\''+msg+'\')">📤 पाठवा</button></div>';
+    html+='<div class="ph-box" id="'+uid+'"><input type="tel" id="ph_'+uid+'" placeholder="10 आकडी नंबर" value="'+sp+'" maxlength="10"/><button onclick="sendWA(\'ph_'+uid+'\',\''+j.name+'\',\''+msg+'\')">📤 पाठवा</button></div>';
   });
   html+='</div>';c.innerHTML=html;
 }
 function tglPh(id){document.getElementById(id).classList.toggle('show');}
 function sendWA(iid,name,msg){
   var ph=document.getElementById(iid).value.trim();
-  if(!ph||ph.length<10){alert('कृपया 10 आकडी नंबर टाका.');return;}
-  // save phone to personnel
+  if(!ph||ph.length<10){alert('10 आकडी नंबर टाका.');return;}
   var pp=personnel.find(function(x){return x.name===name;});
   if(pp){pp.phone=ph;saveAll();}
   window.open('https://wa.me/91'+ph+'?text='+msg,'_blank');
 }
 
-// ══════════════════════════════════════════════
-//  HISTORY
-// ══════════════════════════════════════════════
+// ══ KHARCH ════════════════════════════════════════════
+function showKharchTab(t){
+  curKharchTab=t;
+  document.getElementById('kt-kirana').classList.toggle('active',t==='kirana');
+  document.getElementById('kt-advance').classList.toggle('active',t==='advance');
+  document.getElementById('kk-kirana').style.display=t==='kirana'?'block':'none';
+  document.getElementById('kk-advance').style.display=t==='advance'?'block':'none';
+  if(t==='kirana')renderKirana();else renderAdvance();
+}
+
+function getKhKey(){return mkKey(curY,curM);}
+function getKirana(){var k=kharchData[getKhKey()];return k&&k.kirana?k.kirana:[];}
+function saveKirana(arr){if(!kharchData[getKhKey()])kharchData[getKhKey()]={};kharchData[getKhKey()].kirana=arr;saveAll();}
+
+function addKirana(){
+  if(!isAdmin)return;
+  var name=document.getElementById('ki-name').value.trim();
+  var amt=parseFloat(document.getElementById('ki-amt').value)||0;
+  var by=document.getElementById('ki-by').value;
+  var note=document.getElementById('ki-note').value.trim();
+  if(!name){alert('वस्तूचे नाव टाका.');return;}
+  if(!amt){alert('रक्कम टाका.');return;}
+  var arr=getKirana();
+  arr.push({id:Date.now(),name:name,amt:amt,by:by,note:note,date:dStr(curY,curM,curD)});
+  saveKirana(arr);
+  document.getElementById('ki-name').value='';document.getElementById('ki-amt').value='';
+  document.getElementById('ki-by').value='';document.getElementById('ki-note').value='';
+  renderKirana();
+}
+function delKirana(id){
+  if(!isAdmin)return;
+  var arr=getKirana().filter(function(i){return i.id!==id;});
+  saveKirana(arr);renderKirana();
+}
+function renderKirana(){
+  var arr=getKirana();
+  var c=document.getElementById('kirana-list');
+  if(!arr.length){c.innerHTML='<div class="no-data">अद्याप नोंद नाही.</div>';document.getElementById('kirana-total').textContent='₹0';return;}
+  var total=0,html='';
+  arr.forEach(function(i){
+    total+=i.amt;
+    html+='<div class="kharch-item"><div class="ki-left"><div class="ki-name">'+i.name+'</div><div class="ki-note">'+i.date+(i.by?' | खरेदी: '+i.by:'')+(i.note?' | '+i.note:'')+'</div></div>';
+    html+='<span class="ki-amt">₹'+i.amt+'</span>';
+    if(isAdmin)html+='<button class="ki-del" onclick="delKirana('+i.id+')">✕</button>';
+    html+='</div>';
+  });
+  c.innerHTML=html;
+  document.getElementById('kirana-total').textContent='₹'+total.toFixed(0);
+}
+
+function renderAdvance(){
+  // Collect all advance entries from current month's daily data
+  var advMap={};var totalAdv=0;var entries=[];
+  var tot=dim(curY,curM);
+  for(var d=0;d<tot;d++){
+    var rec=allData[rk(curY,curM,d)]||{};
+    var dt=dStr(curY,curM,d);
+    [{n:rec.a1,a:rec.a1amt},{n:rec.a2,a:rec.a2amt},{n:rec.a3,a:rec.a3amt}].forEach(function(x){
+      if(!x.n)return;
+      var amt=parseFloat(x.a)||0;if(!amt)return;
+      if(!advMap[x.n])advMap[x.n]=0;
+      advMap[x.n]+=amt;totalAdv+=amt;
+      entries.push({name:x.n,amt:amt,date:dt});
+    });
+  }
+  // Summary
+  var sc=document.getElementById('advance-summary');
+  var snames=Object.keys(advMap);
+  if(!snames.length){sc.innerHTML='<div class="no-data">या महिन्यात Advance नाही.</div>';}
+  else{
+    var sh='';
+    snames.forEach(function(n){
+      sh+='<div style="display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid #f5f5f5;font-size:12px;"><span style="font-weight:700;">'+n+'</span><span style="color:#1a3a5c;font-weight:700;">₹'+advMap[n]+'</span></div>';
+    });
+    sc.innerHTML=sh;
+  }
+  // List
+  var lc=document.getElementById('advance-list');
+  if(!entries.length){lc.innerHTML='<div class="no-data">नोंद नाही.</div>';document.getElementById('advance-total').textContent='₹0';return;}
+  var lh='';
+  entries.forEach(function(e){
+    lh+='<div class="kharch-item"><div class="ki-left"><div class="ki-name">'+e.name+'</div><div class="ki-note">'+e.date+'</div></div><span class="ki-amt">₹'+e.amt+'</span></div>';
+  });
+  lc.innerHTML=lh;
+  document.getElementById('advance-total').textContent='₹'+totalAdv;
+}
+
+// ══ HISTORY ═══════════════════════════════════════════
 function buildJawanMap(hm,hy){
   var jmap={};
   Object.keys(allData).forEach(function(k){
@@ -635,8 +784,7 @@ function buildJawanMap(hm,hy){
 }
 function renderHistory(){
   var srch=(document.getElementById('search-input').value||'').trim().toLowerCase();
-  var hm=document.getElementById('hist-month').value;
-  var hy=parseInt(document.getElementById('hist-year').value);
+  var hm=document.getElementById('hist-month').value,hy=parseInt(document.getElementById('hist-year').value);
   var jmap=buildJawanMap(hm,hy);
   var names=Object.keys(jmap).filter(function(n){return !srch||n.toLowerCase().includes(srch);}).sort();
   var c=document.getElementById('history-content');
@@ -656,67 +804,39 @@ function renderHistory(){
   c.innerHTML=html;
 }
 
-// ══════════════════════════════════════════════
-//  PDF DOWNLOAD
-// ══════════════════════════════════════════════
+// ══ PDF ═══════════════════════════════════════════════
 function downloadPDF(){
-  var hm=document.getElementById('hist-month').value;
-  var hy=parseInt(document.getElementById('hist-year').value);
+  var hm=document.getElementById('hist-month').value,hy=parseInt(document.getElementById('hist-year').value);
   var jmap=buildJawanMap(hm,hy);
   var names=Object.keys(jmap).sort();
   var hmLabel=hm==='all'?'सर्व महिने':MN[parseInt(hm)];
-
-  // Build printable HTML
   var rows='';
   names.forEach(function(nm,idx){
     var en=jmap[nm].sort(function(a,b){return(a.ky*10000+a.km*100+a.kd)-(b.ky*10000+b.km*100+b.kd);});
     var mo=en.filter(function(e){return e.shift==='morning';}).length;
-    var ev=en.length-mo;
     var pp=personnel.find(function(x){return x.name===nm;})||{};
-    var chips=en.map(function(e){
-      return '<span style="display:inline-block;font-size:9px;padding:2px 6px;border-radius:4px;margin:1px;'+(e.shift==='morning'?'background:#fff3e0;color:#e65100;border:1px solid #f57c00;':'background:#ede7f6;color:#311b92;border:1px solid #512da8;')+'">'+e.date.slice(0,5)+' '+e.sl+'</span>';
-    }).join('');
+    var chips=en.map(function(e){return '<span style="display:inline-block;font-size:9px;padding:2px 6px;border-radius:4px;margin:1px;'+(e.shift==='morning'?'background:#fff3e0;color:#e65100;border:1px solid #f57c00;':'background:#ede7f6;color:#311b92;border:1px solid #512da8;')+'">'+e.date.slice(0,5)+' '+e.sl+'</span>';}).join('');
     rows+='<tr style="'+(idx%2===0?'background:#f8f9fa;':'')+'">'+
-      '<td style="padding:8px 10px;border-bottom:1px solid #e0e0e0;font-weight:700;color:#1a3a5c;">'+nm+'</td>'+
-      '<td style="padding:8px 10px;border-bottom:1px solid #e0e0e0;font-size:11px;color:#555;">'+
-        (pp.bno?pp.bno+' ':'')+(pp.rank||'')+'</td>'+
-      '<td style="padding:8px 10px;border-bottom:1px solid #e0e0e0;color:#555;font-size:11px;">'+(pp.phone||'—')+'</td>'+
-      '<td style="padding:8px 10px;border-bottom:1px solid #e0e0e0;text-align:center;font-weight:700;color:#1a3a5c;">'+en.length+'</td>'+
-      '<td style="padding:8px 10px;border-bottom:1px solid #e0e0e0;text-align:center;color:#e65100;">'+mo+'</td>'+
-      '<td style="padding:8px 10px;border-bottom:1px solid #e0e0e0;text-align:center;color:#311b92;">'+ev+'</td>'+
-      '<td style="padding:8px 10px;border-bottom:1px solid #e0e0e0;">'+chips+'</td>'+
-    '</tr>';
+      '<td style="padding:7px 8px;border-bottom:1px solid #e0e0e0;font-weight:700;color:#1a3a5c;">'+nm+'</td>'+
+      '<td style="padding:7px 8px;border-bottom:1px solid #e0e0e0;font-size:11px;">'+(pp.bno||'')+' '+(pp.rank||'')+'</td>'+
+      '<td style="padding:7px 8px;border-bottom:1px solid #e0e0e0;font-size:11px;">'+(pp.phone||'—')+'</td>'+
+      '<td style="padding:7px 8px;border-bottom:1px solid #e0e0e0;text-align:center;font-weight:700;">'+en.length+'</td>'+
+      '<td style="padding:7px 8px;border-bottom:1px solid #e0e0e0;text-align:center;color:#e65100;">'+mo+'</td>'+
+      '<td style="padding:7px 8px;border-bottom:1px solid #e0e0e0;text-align:center;color:#311b92;">'+(en.length-mo)+'</td>'+
+      '<td style="padding:7px 8px;border-bottom:1px solid #e0e0e0;">'+chips+'</td></tr>';
   });
-
   var today=dStr(NOW.getFullYear(),NOW.getMonth(),NOW.getDate()-1);
-  var printHtml='<!DOCTYPE html><html lang="mr"><head><meta charset="UTF-8"/>'+
-    '<title>Mess Duty History – '+hmLabel+' '+hy+'</title>'+
-    '<style>body{font-family:Arial,sans-serif;margin:20px;color:#222;}'+
-    'h2{color:#1a3a5c;margin-bottom:4px;}'+
-    '.sub{font-size:12px;color:#888;margin-bottom:16px;}'+
-    'table{width:100%;border-collapse:collapse;font-size:12px;}'+
-    'th{background:#1a3a5c;color:#fff;padding:9px 10px;text-align:left;}'+
-    '@media print{button{display:none;}}'+
-    '</style></head><body>'+
-    '<h2>🛡️ सी-60 रक्षा पथक — मेस ड्युटी History</h2>'+
-    '<div class="sub">एओपी – पिपरखारी &nbsp;|&nbsp; कालावधी: '+hmLabel+' '+hy+' &nbsp;|&nbsp; तारीख: '+today+'</div>'+
-    '<button onclick="window.print()" style="margin-bottom:14px;padding:8px 18px;background:#1a3a5c;color:#fff;border:none;border-radius:7px;font-size:13px;cursor:pointer;">🖨️ Print / PDF Save करा</button>'+
-    '<table><thead><tr>'+
-      '<th>नाव</th><th>बं.न. / हुद्दा</th><th>मोबाईल</th>'+
-      '<th style="text-align:center;">एकूण</th><th style="text-align:center;">🌅 सकाळ</th>'+
-      '<th style="text-align:center;">🌙 संध्याकाळ</th><th>Duty तारखा</th>'+
-    '</tr></thead><tbody>'+rows+'</tbody></table>'+
-    (names.length===0?'<div style="text-align:center;padding:30px;color:#aaa;">नोंद नाही.</div>':'')+
-    '</body></html>';
-
-  var w=window.open('','_blank','width=900,height=700');
-  w.document.write(printHtml);
+  var w=window.open('','_blank','width=950,height=720');
+  w.document.write('<!DOCTYPE html><html lang="mr"><head><meta charset="UTF-8"/><title>History – '+hmLabel+' '+hy+'</title>'+
+    '<style>body{font-family:Arial,sans-serif;margin:20px;color:#222;}h2{color:#1a3a5c;margin-bottom:4px;}.sub{font-size:12px;color:#888;margin-bottom:14px;}table{width:100%;border-collapse:collapse;font-size:12px;}th{background:#1a3a5c;color:#fff;padding:8px;}@media print{button{display:none;}}</style></head>'+
+    '<body><h2>🛡️ सी-60 रक्षा पथक — मेस ड्युटी History</h2>'+
+    '<div class="sub">कालावधी: '+hmLabel+' '+hy+' &nbsp;|&nbsp; तारीख: '+today+'</div>'+
+    '<button onclick="window.print()" style="margin-bottom:12px;padding:8px 18px;background:#1a3a5c;color:#fff;border:none;border-radius:7px;font-size:13px;cursor:pointer;">🖨️ Print / PDF Save करा</button>'+
+    '<table><thead><tr><th>नाव</th><th>बं.न./हुद्दा</th><th>मोबाईल</th><th>एकूण</th><th>🌅</th><th>🌙</th><th>Duty तारखा</th></tr></thead><tbody>'+rows+'</tbody></table></body></html>');
   w.document.close();
 }
 
-// ══════════════════════════════════════════════
-//  STATS
-// ══════════════════════════════════════════════
+// ══ STATS ═════════════════════════════════════════════
 function renderStats(){
   var hy=parseInt(document.getElementById('sel-year').value);
   document.getElementById('stats-year').textContent=hy;
@@ -747,73 +867,44 @@ function renderStats(){
   t5.innerHTML=h;
 }
 
-// ══════════════════════════════════════════════
-//  PERSONNEL
-// ══════════════════════════════════════════════
+// ══ PERSONNEL ═════════════════════════════════════════
 function addPersonnel(){
-  if(!isAdmin){alert('Admin PIN शिवाय edit करता येणार नाही.');return;}
+  if(!isAdmin)return;
   var inp=document.getElementById('new-name'),name=inp.value.trim();
   if(!name){alert('नाव टाका.');return;}
   if(personnel.length>=23){alert('जास्तीत जास्त 23 जवान.');return;}
   if(personnel.find(function(p){return p.name===name;})){alert('हे नाव आधीच आहे.');return;}
   personnel.push({bno:'',rank:'',name:name,phone:''});saveAll();inp.value='';renderPersonnel();refreshDDs();
 }
-function delP(i){
-  if(!isAdmin)return;
-  if(!confirm('"'+personnel[i].name+'" काढायचे का?'))return;
-  personnel.splice(i,1);saveAll();renderPersonnel();refreshDDs();
-}
+function delP(i){if(!isAdmin)return;if(!confirm('"'+personnel[i].name+'" काढायचे का?'))return;personnel.splice(i,1);saveAll();renderPersonnel();refreshDDs();}
 function savePhone(i){
   if(!isAdmin)return;
-  var inp=document.getElementById('phone_'+i);
-  var ph=inp.value.trim();
+  var inp=document.getElementById('phone_'+i),ph=inp.value.trim();
   if(ph&&(ph.length<10||isNaN(ph))){alert('10 आकडी नंबर टाका.');return;}
   personnel[i].phone=ph;saveAll();
-  inp.style.borderColor='#66bb6a';
-  setTimeout(function(){inp.style.borderColor='';},1500);
+  inp.style.borderColor='#66bb6a';setTimeout(function(){inp.style.borderColor='';},1500);
 }
 function renderPersonnel(){
   document.getElementById('p-count').textContent=personnel.length;
   var ul=document.getElementById('p-list');ul.innerHTML='';
   personnel.forEach(function(p,i){
     var li=document.createElement('li');
-    li.innerHTML=
-      '<div class="per-name-row">'+
-        '<span class="per-name">'+(i+1)+'. '+p.name+
-          (p.rank?'<span class="rank-badge">'+p.rank+'</span>':'')+
-          '<span class="bno-tag">'+p.bno+'</span>'+
-        '</span>'+
-        (isAdmin?'<button class="pdel" onclick="delP('+i+')">✕</button>':'')+
-      '</div>'+
-      '<div class="per-phone-row">'+
-        '<input type="tel" id="phone_'+i+'" placeholder="मोबाईल नंबर (10 आकडे)" value="'+(p.phone||'')+'" maxlength="10" '+(isAdmin?'':'disabled')+'/>'+
-        (isAdmin?'<button onclick="savePhone('+i+')">💾</button>':'')+
-      '</div>';
+    li.innerHTML='<div class="per-name-row"><span class="per-name">'+(i+1)+'. '+p.name+(p.rank?'<span class="rank-badge">'+p.rank+'</span>':'')+
+      '<span class="bno-tag">'+p.bno+'</span></span>'+(isAdmin?'<button class="pdel" onclick="delP('+i+')">✕</button>':'')+'</div>'+
+      '<div class="per-phone-row"><input type="tel" id="phone_'+i+'" placeholder="मोबाईल नंबर" value="'+(p.phone||'')+'" maxlength="10" '+(isAdmin?'':'disabled')+'/>'+
+      (isAdmin?'<button onclick="savePhone('+i+')">💾</button>':'')+'</div>';
     ul.appendChild(li);
   });
 }
 
-// ══════════════════════════════════════════════
-//  PWA
-// ══════════════════════════════════════════════
-window.addEventListener('beforeinstallprompt',function(e){
-  e.preventDefault();deferredPrompt=e;
-  if(!localStorage.getItem('install_dismissed'))document.getElementById('install-banner').classList.add('show');
-});
-function doInstall(){
-  document.getElementById('install-banner').classList.remove('show');
-  if(deferredPrompt){deferredPrompt.prompt();deferredPrompt.userChoice.then(function(){deferredPrompt=null;});}
-}
+// ══ PWA ═══════════════════════════════════════════════
+window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();deferredPrompt=e;if(!localStorage.getItem('install_dismissed'))document.getElementById('install-banner').classList.add('show');});
+function doInstall(){document.getElementById('install-banner').classList.remove('show');if(deferredPrompt){deferredPrompt.prompt();deferredPrompt.userChoice.then(function(){deferredPrompt=null;});}}
 function dismissInstall(){document.getElementById('install-banner').classList.remove('show');localStorage.setItem('install_dismissed','1');}
 window.addEventListener('appinstalled',function(){document.getElementById('install-banner').classList.remove('show');});
+if('serviceWorker' in navigator)window.addEventListener('load',function(){navigator.serviceWorker.register('./sw.js').catch(function(){});});
 
-if('serviceWorker' in navigator){
-  window.addEventListener('load',function(){navigator.serviceWorker.register('./sw.js').catch(function(){});});
-}
-
-// PIN input — Enter key
 document.getElementById('pin-input').addEventListener('keydown',function(e){if(e.key==='Enter')tryLogin();});
-// Init lock screen (no auto-enter)
 load();
 </script>
 </body>
